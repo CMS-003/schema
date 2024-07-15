@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import Base from '../base.js'
-import { v4 } from "uuid";
 import { ICounter } from "../types";
 
 class Counter extends Base<ICounter> {
@@ -37,10 +36,9 @@ class Counter extends Base<ICounter> {
       _id: false,
       strict: false,
       excludeIndexes: true,
-      timestamps: true,
-      collection: 'counter'
+      collection: 'counter_info'
     });
-    this.model = db.model<ICounter>('Counter', schema);
+    this.model = db.model<ICounter>('counter_info', schema);
     Base.models.Counter = this.model;
   }
 }

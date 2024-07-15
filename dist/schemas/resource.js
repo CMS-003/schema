@@ -1,18 +1,13 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
-const base_js_1 = __importDefault(require("../base.js"));
-const uuid_1 = require("uuid");
-class Resource extends base_js_1.default {
+import mongoose from "mongoose";
+import Base from '../base.js';
+import { v4 } from "uuid";
+class Resource extends Base {
     constructor(db) {
         super();
-        const schema = new mongoose_1.default.Schema({
+        const schema = new mongoose.Schema({
             id: {
                 type: String,
-                default: uuid_1.v4,
+                default: v4,
             },
             title: {
                 type: String,
@@ -99,11 +94,10 @@ class Resource extends base_js_1.default {
             _id: false,
             strict: false,
             excludeIndexes: true,
-            timestamps: true,
             collection: 'resource'
         });
-        this.model = db.model('Resource', schema);
-        base_js_1.default.models.Resource = this.model;
+        this.model = db.model('resource', schema);
+        Base.models.Resource = this.model;
     }
 }
-exports.default = Resource;
+export default Resource;

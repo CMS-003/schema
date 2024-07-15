@@ -96,10 +96,9 @@ class Resource extends Base<IResource> {
       _id: false,
       strict: false,
       excludeIndexes: true,
-      timestamps: true,
       collection: 'resource'
     });
-    this.model = db.model<IResource>('Resource', schema);
+    this.model = db.model<IResource>('resource', schema);
     Base.models.Resource = this.model;
   }
 }

@@ -1,14 +1,9 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
-const base_js_1 = __importDefault(require("../base.js"));
-class Counter extends base_js_1.default {
+import mongoose from "mongoose";
+import Base from '../base.js';
+class Counter extends Base {
     constructor(db) {
         super();
-        const schema = new mongoose_1.default.Schema({
+        const schema = new mongoose.Schema({
             resource_id: {
                 type: String,
             },
@@ -39,11 +34,10 @@ class Counter extends base_js_1.default {
             _id: false,
             strict: false,
             excludeIndexes: true,
-            timestamps: true,
-            collection: 'counter'
+            collection: 'counter_info'
         });
-        this.model = db.model('Counter', schema);
-        base_js_1.default.models.Counter = this.model;
+        this.model = db.model('counter_info', schema);
+        Base.models.Counter = this.model;
     }
 }
-exports.default = Counter;
+export default Counter;
