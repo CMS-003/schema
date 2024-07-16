@@ -3,7 +3,7 @@ import Base from "../../base.js";
 class ComponentType extends Base {
   constructor(db) {
     super();
-    var schema = new mongoose.Schema({
+    const schema = new mongoose.Schema({
       _id: {
         type: String
       },

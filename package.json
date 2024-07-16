@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc && cp -R src/types dist/types",
     "bbuild": "rm -rf dist/ && babel src --out-dir dist --extensions \".ts\"",
-    "check_ts_type": "tsc -noEmit true",
+    "check_ts_type": "tsc -noEmit false",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -30,6 +30,7 @@
     "@babel/cli": "^7.24.8",
     "@babel/core": "^7.24.9",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-proposal-decorators": "^7.24.7",
     "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
     "@babel/plugin-transform-typescript": "^7.24.8",
     "@babel/preset-env": "^7.24.8",

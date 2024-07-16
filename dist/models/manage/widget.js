@@ -1,44 +1,35 @@
 import mongoose from "mongoose";
 import Base from "../../base.js";
-class Verification extends Base {
+class Widget extends Base {
   constructor(db) {
     super();
     const schema = new mongoose.Schema({
       _id: {
         type: String
       },
-      method: {
+      title: {
         type: String
       },
-      type: {
+      cover: {
+        type: String
+      },
+      desc: {
+        type: String
+      },
+      status: {
         type: Number
-      },
-      code: {
-        type: String
-      },
-      content: {
-        type: String
-      },
-      user_id: {
-        type: String
-      },
-      receiver: {
-        type: String
       },
       createdAt: {
         type: Date
       },
-      expiredAt: {
+      updatedAt: {
         type: Date
-      },
-      status: {
-        type: Number
       }
     }, {
       strict: false,
       versionKey: false,
       excludeIndexes: true,
-      collection: 'verification',
+      collection: 'widget_info',
       virtuals: {
         id: {
           get() {
@@ -53,8 +44,8 @@ class Verification extends Base {
         }
       }
     });
-    this.model = db.model('verification', schema);
-    Base.models.Verification = this.model;
+    this.model = db.model('widget_info', schema);
+    Base.models.Widget = this.model;
   }
 }
-export default Verification;
+export default Widget;

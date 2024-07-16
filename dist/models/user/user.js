@@ -1,10 +1,9 @@
 import mongoose from "mongoose";
 import Base from "../../base.js";
 class User extends Base {
-  constructor(db) {
-    var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  constructor(db, params = {}) {
     super();
-    var schema = new mongoose.Schema({
+    const schema = new mongoose.Schema({
       _id: {
         type: String
       },

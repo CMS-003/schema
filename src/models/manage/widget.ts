@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import Base from '@/base.js'
 
-interface IProject {
+interface IWidget {
   _id: string;
   title: string;
   cover: string;
@@ -11,7 +11,7 @@ interface IProject {
   updatedAt: Date;
 }
 
-class Project extends Base<IProject> {
+class Widget extends Base<IWidget> {
   constructor(db: mongoose.Connection) {
     super();
     const schema = new mongoose.Schema({
@@ -26,7 +26,7 @@ class Project extends Base<IProject> {
       strict: false,
       versionKey: false,
       excludeIndexes: true,
-      collection: 'project_info',
+      collection: 'widget_info',
       virtuals: {
         id: {
           get() {
@@ -41,9 +41,9 @@ class Project extends Base<IProject> {
         }
       }
     });
-    this.model = db.model<IProject>('project_info', schema);
-    Base.models.Project = this.model;
+    this.model = db.model<IWidget>('widget_info', schema);
+    Base.models.Widget = this.model;
   }
 }
 
-export default Project;
+export default Widget;

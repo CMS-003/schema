@@ -4,7 +4,7 @@ import { v4 } from "uuid";
 class Resource extends Base {
   constructor(db) {
     super();
-    var schema = new mongoose.Schema({
+    const schema = new mongoose.Schema({
       _id: {
         type: String,
         default: v4

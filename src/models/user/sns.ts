@@ -3,6 +3,7 @@ import Base from '@/base.js'
 
 interface ISns {
   _id: string;
+  user_id: string;
   sns_id: string;
   sns_type: string;
   nickname: string;

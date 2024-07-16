@@ -5,9 +5,11 @@
       {
         "modules": false,
         "targets": {
-          "node": "14",
-          "esmodules": true
-        }
+          "node": "current"
+        },
+        "exclude": [
+          "transform-async-to-generator"
+        ]
       }
     ],
     "@babel/preset-typescript"
@@ -21,6 +23,20 @@
         }
       }
     ],
-    "@babel/plugin-transform-typescript"
+    [
+      "@babel/plugin-transform-typescript"
+    ],
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "version": "2023-11"
+      }
+    ],
+    [
+      "@babel/plugin-proposal-class-properties",
+      {
+        "loose": true
+      }
+    ]
   ]
 }

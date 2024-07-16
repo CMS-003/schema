@@ -19,6 +19,8 @@ interface ITemplate {
   path: string;
   attrs: object;
   style: object;
+  status: number;
+  order: number;
   createdAt: Date;
   updatedAt: Date;
   fields: Field[];
@@ -36,12 +38,13 @@ class Template extends Base<ITemplate> {
       cover: { type: String },
       path: { type: String },
       desc: { type: String },
+      status: { type: Number },
       order: { type: Number },
       attrs: { type: Object },
       style: { type: Object },
+      fields: { type: [{ _id: false, widget: String, field: String, dataType: String, dataValue: mongoose.Schema.Types.Mixed }] },
       createdAt: { type: Date },
       updatedAt: { type: Date },
-      status: { type: Number },
     }, {
       strict: false,
       versionKey: false,

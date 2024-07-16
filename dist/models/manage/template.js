@@ -3,7 +3,7 @@ import Base from "../../base.js";
 class Template extends Base {
   constructor(db) {
     super();
-    var schema = new mongoose.Schema({
+    const schema = new mongoose.Schema({
       _id: {
         type: String
       },
@@ -28,6 +28,9 @@ class Template extends Base {
       desc: {
         type: String
       },
+      status: {
+        type: Number
+      },
       order: {
         type: Number
       },
@@ -37,14 +40,20 @@ class Template extends Base {
       style: {
         type: Object
       },
+      fields: {
+        type: [{
+          _id: false,
+          widget: String,
+          field: String,
+          dataType: String,
+          dataValue: mongoose.Schema.Types.Mixed
+        }]
+      },
       createdAt: {
         type: Date
       },
       updatedAt: {
         type: Date
-      },
-      status: {
-        type: Number
       }
     }, {
       strict: false,

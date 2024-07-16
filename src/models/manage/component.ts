@@ -10,6 +10,7 @@ interface IComponent {
   name: string;
   type: string;
   title: string;
+  desc: string;
   cover: string;
   status: number;
   accepts: string[];
@@ -33,6 +34,7 @@ class Component extends Base<IComponent> {
       name: { type: String },
       type: { type: String },
       title: { type: String },
+      desc: { type: String },
       cover: { type: String },
       status: { type: Number },
       accepts: { type: [String] },
