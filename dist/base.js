@@ -72,10 +72,6 @@ class Base {
         }
         return opt;
     }
-    /**
-     * aggregate聚合函数
-     * @param {array} sql 数组
-     */
     aggregate(query) {
         return this.model.aggregate(query);
     }
@@ -83,7 +79,7 @@ class Base {
         return this.model;
     }
     create(data) {
-        if (!data._id) {
+        if (data.id && !data._id) {
             data._id = data.id;
             delete data.id;
         }

@@ -1,13 +1,13 @@
 import _ from 'lodash'
 import mongoose, { Model, Schema, Document, FilterQuery, Query, mongo } from 'mongoose';
 
-export interface OPT<T> {
+export interface OPT<T = void> {
   sum?: string;
   where?: any,
   sort?: { [key: string]: any } | string,
   attrs?: { [key: string]: number },
   lean?: boolean,
-  data?: null | Partial<T>,
+  data?: Partial<T>,
   options?: object,
   page?: number,
   offset?: number,
@@ -23,7 +23,7 @@ class Base<T> {
     this.model = null;
   }
 
-  _init(opts: OPT<T>) {
+  _init(opts: OPT<T> | OPT) {
     const opt: OPT<T> = {
       where: {},
       sort: {},
@@ -90,10 +90,6 @@ class Base<T> {
 
     return opt;
   }
-  /**
-   * aggregate聚合函数
-   * @param {array} sql 数组
-   */
 
   aggregate(query: any) {
     return this.model.aggregate(query);
@@ -103,8 +99,8 @@ class Base<T> {
     return this.model;
   }
 
-  create(data: Partial<T> & { id: string; _id: string }) {
-    if (!data._id) {
+  create(data: Partial<T> & { id?: string; _id?: string }) {
+    if (data.id && !data._id) {
       data._id = data.id;
       delete data.id;
     }
@@ -117,14 +113,14 @@ class Base<T> {
     }
     return this.model.deleteMany(opt.where);
   }
-  async update(opts = {}) {
+  async update(opts: OPT<T> = {}) {
     const opt = this._init(opts);
     if (opt.data) {
       await this.model.updateMany(opt.where, opt.data, opt.options);
     }
-    return this.getInfo(opts);
+    return this.getInfo(opts as OPT);
   }
-  getAll(opts = {}) {
+  getAll(opts: OPT = {}) {
     const opt = this._init(opts);
     return this.model.find(opt.where).select(opt.attrs).sort(opt.sort).lean(opt.lean);
   }
@@ -139,11 +135,11 @@ class Base<T> {
       { $group: { _id: null, count: { $sum: '$' + opt.sum } } }]);
     return sum.length ? sum[0].count : 0;
   }
-  getList(opts = {}) {
+  getList(opts: OPT = {}) {
     const opt = this._init(opts);
     return this.model.find(opt.where).select(opt.attrs).limit(opt.limit).skip(opt.offset).sort(opt.sort).lean(opt.lean);
   }
-  async getInfo(opts = {}) {
+  async getInfo(opts: OPT = {}) {
     const opt = this._init(opts);
     const result = await this.model.findOne(opt.where).select(opt.attrs).skip(opt.offset).sort(opt.sort).lean(opt.lean);
     return result;
