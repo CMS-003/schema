@@ -2,5 +2,8 @@
     "editor.tabSize": 2,
     "editor.defaultFoldingRangeProvider": "vscode.typescript-language-features",
     "editor.defaultFormatter": "vscode.typescript-language-features",
-    "editor.tabCompletion": "on"
+    "editor.tabCompletion": "on",
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    }
 }

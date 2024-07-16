@@ -1,6 +1,18 @@
 import _ from 'lodash'
-import { Model } from 'mongoose';
-import { OPT } from './types';
+import mongoose, { Model, Schema, Document, FilterQuery, Query, mongo } from 'mongoose';
+
+export interface OPT<T> {
+  sum?: string;
+  where?: any,
+  sort?: { [key: string]: any } | string,
+  attrs?: { [key: string]: number },
+  lean?: boolean,
+  data?: null | Partial<T>,
+  options?: object,
+  page?: number,
+  offset?: number,
+  limit?: number,
+}
 
 class Base<T> {
   static models: { [key: string]: Model<any> } = {};
@@ -91,7 +103,11 @@ class Base<T> {
     return this.model;
   }
 
-  create(data: Partial<T>) {
+  create(data: Partial<T> & { id: string; _id: string }) {
+    if (!data._id) {
+      data._id = data.id;
+      delete data.id;
+    }
     return this.model.create(data);
   }
   destroy(opts: OPT<T>) {
