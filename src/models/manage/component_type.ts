@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import Base from '@/base.js'
+import Base from '../../base.js'
 
-interface IComponentType {
+export interface IComponentType {
   _id: string;
   title: string;
   name: string;

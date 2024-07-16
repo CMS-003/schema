@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import Base from '@/base.js'
+import Base from '../../base.js'
 
-interface ICapsule {
+export interface ICapsule {
   _id: string;
   name: string;
   receiver: string;

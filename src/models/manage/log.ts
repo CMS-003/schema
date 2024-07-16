@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import Base from '@/base.js'
+import Base from '../../base.js'
 
-interface ILog {
+export interface ILog {
   _id: string;
   type: string;
   group: string;

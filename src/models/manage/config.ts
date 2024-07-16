@@ -1,12 +1,13 @@
 import mongoose, { Model } from "mongoose";
-import Base from '@/base.js'
+import Base from '../../base.js'
 
-interface IConfig {
+export interface IConfig {
   _id: string;
   project_id: string;
   name: string;
   desc: string;
   type: string;
+  value: any;
   createdAt: Date;
   updatedAt: Date;
 }

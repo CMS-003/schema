@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import Base from '@/base.js'
+import Base from '../../base.js'
 import { v4 } from "uuid";
 
-interface IResource extends Document {
+export interface IResource {
   _id: string;
   title: string;
   desc: string;

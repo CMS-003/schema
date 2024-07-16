@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import Base from '@/base.js'
+import Base from '../../base.js'
 
-interface ICounter {
+export interface ICounter {
   _id: string;
   resource_id: string;
   resource_type: string;

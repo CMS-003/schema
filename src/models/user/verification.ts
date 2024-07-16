@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import Base from '@/base.js'
+import Base from '../../base.js'
 
-interface IVerification {
+export interface IVerification {
   _id: string;
   method: string;
   type: number;

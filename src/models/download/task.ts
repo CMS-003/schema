@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import Base from '@/base.js'
+import Base from '../../base.js'
 
-interface ITask extends Document {
+export interface ITask {
   _id: string;
   name: string;
   type: string;
@@ -55,7 +55,8 @@ class Task extends Base<ITask> {
         default: {},
       },
       status: {
-        type: Status,
+        type: Number,
+        enum: Status,
         default: 1,
       },
       transcode: {

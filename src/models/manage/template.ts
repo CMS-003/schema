@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
-import Base from '@/base.js'
+import Base from '../../base.js'
 
-interface Field {
+export interface Field {
   widget: string;
   field: string;
   dataType: string;
   dataValue: mongoose.Schema.Types.Mixed
 }
 
-interface ITemplate {
+export interface ITemplate {
   _id: string;
   project_id: string;
   title: string;

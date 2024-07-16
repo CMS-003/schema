@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import Base from '@/base.js'
+import Base from '../../base.js'
 
-interface ISns {
+export interface ISns {
   _id: string;
   user_id: string;
   sns_id: string;

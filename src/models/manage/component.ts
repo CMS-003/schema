@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import Base from '@/base.js'
+import Base from '../../base.js'
 
-interface IComponent {
+export interface IComponent {
   _id: string;
   project_id: string;
   template_id: string;
@@ -20,6 +20,7 @@ interface IComponent {
   style: object;
   createdAt: Date;
   updatedAt: Date;
+  children?: IComponent[];
 }
 
 class Component extends Base<IComponent> {

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import Base from '@/base.js'
+import Base from '../../base.js'
 
-interface IWidget {
+export interface IWidget {
   _id: string;
   title: string;
   cover: string;

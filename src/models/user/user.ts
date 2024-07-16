@@ -1,7 +1,7 @@
 import mongoose, { Model } from "mongoose";
-import Base from '@/base.js'
+import Base from '../../base.js'
 
-interface IUser {
+export interface IUser {
   _id: string;
   name: string;
   nickname: string;

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import Base from '@/base.js'
+import Base from '../../base.js'
 
-interface IProject {
+export interface IProject {
   _id: string;
   title: string;
   cover: string;
