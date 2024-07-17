@@ -1,16 +1,7 @@
 import mongoose, { Model } from "mongoose";
-import Base from '../../base.js'
+import { Base, IConfig } from '../../@types/types'
 
-export interface IConfig {
-  _id: string;
-  project_id: string;
-  name: string;
-  desc: string;
-  type: string;
-  value: any;
-  createdAt: Date;
-  updatedAt: Date;
-}
+
 
 class Config extends Base<IConfig> {
   constructor(db: mongoose.Connection, params: { methods?: { [key: string]: Function }, statics?: { [key: string]: (this: Model<IConfig>) => any } } = {}) {

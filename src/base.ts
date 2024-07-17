@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import mongoose, { Model, Schema, Document, FilterQuery, Query, mongo } from 'mongoose';
+import { Model } from 'mongoose';
 
 export interface OPT<T = void> {
   sum?: string;

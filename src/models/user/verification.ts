@@ -1,19 +1,5 @@
 import mongoose from "mongoose";
-import Base from '../../base.js'
-
-export interface IVerification {
-  _id: string;
-  method: string;
-  type: number;
-  // 1 registry 2 login 3 update pass 4 forgot pass 5 logoff 6 bind
-  code: string;
-  content: string;
-  user_id: string;
-  receiver: string;
-  createdAt: Date;
-  expiredAt: Date;
-  status: number;
-}
+import { Base, IVerification } from '../../@types/types'
 
 class Verification extends Base<IVerification> {
   constructor(db: mongoose.Connection) {

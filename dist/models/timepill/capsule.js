@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Base from '../../base.js';
+import { Base } from '../../@types/types';
 class Capsule extends Base {
     constructor(db) {
         super();

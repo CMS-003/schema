@@ -1,20 +1,6 @@
 import mongoose from "mongoose";
-import Base from '../../base.js'
+import { Base, ITask } from '../../@types/types'
 
-export interface ITask {
-  _id: string;
-  name: string;
-  type: string;
-  proxy: boolean;
-  header: object;
-  params: object;
-  url: string;
-  filepath: string;
-  retries: number;
-  status: number;
-  transcode: number;
-  createdAt: Date;
-}
 enum Status {
   INIT = 1,
   DOWNLOADING = 2,

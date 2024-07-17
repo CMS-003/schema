@@ -1,12 +1,5 @@
 import mongoose from "mongoose";
-import Base from '../../base.js';
-export interface ILog {
-    _id: string;
-    type: string;
-    group: string;
-    content: string;
-    createdAt: string;
-}
+import { Base, ILog } from '../../@types/types';
 declare class Log extends Base<ILog> {
     constructor(db: mongoose.Connection);
 }

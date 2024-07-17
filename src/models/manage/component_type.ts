@@ -1,17 +1,7 @@
 import mongoose from "mongoose";
-import Base from '../../base.js'
+import { Base, IComponentType } from '../../@types/types'
 
-export interface IComponentType {
-  _id: string;
-  title: string;
-  name: string;
-  cover: string;
-  accepts: string[];
-  order: number;
-  status: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
+
 
 class ComponentType extends Base<IComponentType> {
   constructor(db: mongoose.Connection) {
