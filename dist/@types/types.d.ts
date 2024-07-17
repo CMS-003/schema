@@ -181,6 +181,7 @@ export interface ITemplate {
     createdAt: Date;
     updatedAt: Date;
     fields: Field[];
+    children?: IComponent[];
 }
 export interface IWidget {
     _id: string;

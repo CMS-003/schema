@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { Model } from 'mongoose';
+import { Model, UpdateQuery, UpdateWithAggregationPipeline } from 'mongoose';
 
 export interface OPT<T = void> {
   sum?: string;
@@ -7,7 +7,7 @@ export interface OPT<T = void> {
   sort?: { [key: string]: any } | string,
   attrs?: { [key: string]: number },
   lean?: boolean,
-  data?: Partial<T>,
+  data?: UpdateQuery<T> | UpdateWithAggregationPipeline,
   options?: object,
   page?: number,
   offset?: number,
@@ -102,7 +102,7 @@ class Base<T> {
   create(data: Partial<T>) {
     return this.model.create(data);
   }
-  destroy(opts: OPT<T>) {
+  destroy(opts: OPT) {
     const opt = this._init(opts);
     if (_.isEmpty(opt.where)) {
       opt.where['_id'] = ''

@@ -90,8 +90,8 @@ export interface IUser {
 export interface IVerification {
   _id: string;
   method: string;
-  type: number;
   // 1 registry 2 login 3 update pass 4 forgot pass 5 logoff 6 bind
+  type: number;
   code: string;
   content: string;
   user_id: string;
@@ -183,6 +183,7 @@ export interface ITemplate {
   createdAt: Date;
   updatedAt: Date;
   fields: Field[];
+  children?: IComponent[];
 }
 export interface IWidget {
   _id: string;
