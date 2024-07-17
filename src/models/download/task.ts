@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import { Base, ITask } from '../../@types/types'
+import Base from '../../base.js';
+import { ITask } from '../../@types/types'
 
 enum Status {
   INIT = 1,

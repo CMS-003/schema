@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import { Base, IProject } from '../../@types/types'
+import Base from '../../base.js';
+import { IProject } from '../../@types/types'
 
 class Project extends Base<IProject> {
   constructor(db: mongoose.Connection) {

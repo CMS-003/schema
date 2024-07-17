@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import { Base, IVerification } from '../../@types/types'
+import Base from '../../base.js';
+import { IVerification } from '../../@types/types'
 
 class Verification extends Base<IVerification> {
   constructor(db: mongoose.Connection) {

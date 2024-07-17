@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import { Base, IResource } from '../../@types/types';
+import Base from '../../base.js';
+import { IResource } from '../../@types/types';
 declare class Resource extends Base<IResource> {
     constructor(db: mongoose.Connection);
 }

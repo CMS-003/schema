@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Base } from '../../@types/types';
+import Base from '../../base.js';
 var Status;
 (function (Status) {
     Status[Status["INIT"] = 1] = "INIT";

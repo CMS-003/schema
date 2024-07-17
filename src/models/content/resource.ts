@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { v4 } from "uuid";
-import { Base, IResource } from '../../@types/types'
+import Base from '../../base.js';
+import { IResource } from '../../@types/types'
 
 class Resource extends Base<IResource> {
   constructor(db: mongoose.Connection) {

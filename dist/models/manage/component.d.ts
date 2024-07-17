@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import { Base, IComponent } from '../../@types/types';
+import Base from '../../base.js';
+import { IComponent } from '../../@types/types';
 declare class Component extends Base<IComponent> {
     constructor(db: mongoose.Connection);
 }

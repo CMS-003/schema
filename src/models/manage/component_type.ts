@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import { Base, IComponentType } from '../../@types/types'
+import Base from '../../base.js';
+import { IComponentType } from '../../@types/types'
 
 
 

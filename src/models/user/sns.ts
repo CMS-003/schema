@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import { Base, ISns } from '../../@types/types'
+import Base from '../../base.js';
+import { ISns } from '../../@types/types'
 
 class Sns extends Base<ISns> {
   constructor(db: mongoose.Connection) {

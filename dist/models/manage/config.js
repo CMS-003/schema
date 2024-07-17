@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Base } from '../../@types/types';
+import Base from '../../base.js';
 class Config extends Base {
     constructor(db, params = {}) {
         super();
