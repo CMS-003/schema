@@ -1,11 +1,11 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import Base from '../../base.js';
 import { IComponentType } from '../../@types/types'
 
 
 
 class ComponentType extends Base<IComponentType> {
-  constructor(db: mongoose.Connection) {
+  constructor(db: mongoose.Connection, params: { methods?: { [key: string]: Function }, statics?: { [key: string]: (this: Model<IComponentType>) => any } } = {}) {
     super();
     const schema = new mongoose.Schema({
       _id: { type: String },
@@ -22,19 +22,8 @@ class ComponentType extends Base<IComponentType> {
       versionKey: false,
       excludeIndexes: true,
       collection: 'component_type_info',
-      virtuals: {
-        id: {
-          get() {
-            return this._id;
-          }
-        }
-      },
-      toJSON: {
-        transform(doc, rest) {
-          rest.id = rest._id;
-          delete rest._id;
-        }
-      }
+      methods: params.methods || {},
+      statics: params.statics || {},
     });
     this.model = db.model<IComponentType>('component_type_info', schema);
     Base.models.ComponentType = this.model;

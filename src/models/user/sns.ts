@@ -1,9 +1,9 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import Base from '../../base.js';
 import { ISns } from '../../@types/types'
 
 class Sns extends Base<ISns> {
-  constructor(db: mongoose.Connection) {
+  constructor(db: mongoose.Connection, params: { methods?: { [key: string]: Function }, statics?: { [key: string]: (this: Model<ISns>) => any } } = {}) {
     super();
     const schema = new mongoose.Schema({
       _id: { type: String },
@@ -24,19 +24,8 @@ class Sns extends Base<ISns> {
       versionKey: false,
       excludeIndexes: true,
       collection: 'sns_info',
-      virtuals: {
-        id: {
-          get() {
-            return this._id;
-          }
-        }
-      },
-      toJSON: {
-        transform(doc, rest) {
-          rest.id = rest._id;
-          delete rest._id;
-        }
-      }
+      methods: params.methods || {},
+      statics: params.statics || {},
     });
     this.model = db.model<ISns>('sns_info', schema);
     Base.models.Sns = this.model;

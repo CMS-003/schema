@@ -99,11 +99,7 @@ class Base<T> {
     return this.model;
   }
 
-  create(data: Partial<T> & { id?: string; _id?: string }) {
-    if (data.id && !data._id) {
-      data._id = data.id;
-      delete data.id;
-    }
+  create(data: Partial<T>) {
     return this.model.create(data);
   }
   destroy(opts: OPT<T>) {

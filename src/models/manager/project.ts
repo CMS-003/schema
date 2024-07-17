@@ -1,9 +1,9 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import Base from '../../base.js';
 import { IProject } from '../../@types/types'
 
 class Project extends Base<IProject> {
-  constructor(db: mongoose.Connection) {
+  constructor(db: mongoose.Connection, params: { methods?: { [key: string]: Function }, statics?: { [key: string]: (this: Model<IProject>) => any } } = {}) {
     super();
     const schema = new mongoose.Schema({
       _id: { type: String },
@@ -18,19 +18,8 @@ class Project extends Base<IProject> {
       versionKey: false,
       excludeIndexes: true,
       collection: 'project_info',
-      virtuals: {
-        id: {
-          get() {
-            return this._id;
-          }
-        }
-      },
-      toJSON: {
-        transform(doc, rest) {
-          rest.id = rest._id;
-          delete rest._id;
-        }
-      }
+      methods: params.methods || {},
+      statics: params.statics || {},
     });
     this.model = db.model<IProject>('project_info', schema);
     Base.models.Project = this.model;

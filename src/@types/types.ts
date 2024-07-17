@@ -16,6 +16,23 @@ export interface IResource {
   _id: string;
   title: string;
   desc: string;
+  thumbnail: string;
+  poster: string;
+  alias: string[];
+  content: string;
+  tags: string[];
+  uid: string;
+  uname: string;
+  status: number;
+  original: object;
+  origin: string;
+  country: string;
+  lang: string;
+  cspn: string;
+  spider_id: string;
+  source_id: string;
+  types: string[];
+  publishedAt: Date;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -127,10 +144,11 @@ export interface IConfig {
 }
 export interface ILog {
   _id: string;
+  project_id: string;
   type: string;
   group: string;
   content: string;
-  createdAt: string;
+  createdAt: Date;
 }
 export interface IProject {
   _id: string;

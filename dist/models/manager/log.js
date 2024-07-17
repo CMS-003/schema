@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import Base from '../../base.js';
 class Log extends Base {
-    constructor(db) {
+    constructor(db, params = {}) {
         super();
         const schema = new mongoose.Schema({
             _id: { type: String },
@@ -14,19 +14,8 @@ class Log extends Base {
             strict: false,
             versionKey: false,
             collection: 'log_info',
-            virtuals: {
-                id: {
-                    get() {
-                        return this._id;
-                    }
-                }
-            },
-            toJSON: {
-                transform(doc, rest) {
-                    rest.id = rest._id;
-                    delete rest._id;
-                }
-            }
+            methods: params.methods || {},
+            statics: params.statics || {},
         });
         this.model = db.model('log_info', schema);
         Base.models.Log = this.model;

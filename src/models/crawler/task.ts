@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import Base from '../../base.js';
-import { ITask } from '../../@types/types'
+import { ITask } from '../../@types/types.js'
 
 enum Status {
   INIT = 1,
@@ -10,7 +10,7 @@ enum Status {
   FINISHED = 5,
 }
 class Task extends Base<ITask> {
-  constructor(db: mongoose.Connection) {
+  constructor(db: mongoose.Connection, params: { methods?: { [key: string]: Function }, statics?: { [key: string]: (this: Model<ITask>) => any } } = {}) {
     super();
     const schema = new mongoose.Schema({
       _id: {
@@ -62,19 +62,8 @@ class Task extends Base<ITask> {
       versionKey: false,
       excludeIndexes: true,
       collection: 'task',
-      virtuals: {
-        id: {
-          get() {
-            return this._id;
-          }
-        }
-      },
-      toJSON: {
-        transform(doc, rest) {
-          rest.id = rest._id;
-          delete rest._id;
-        }
-      }
+      methods: params.methods || {},
+      statics: params.statics || {},
     });
     this.model = db.model<ITask>('task', schema);
     Base.models.Task = this.model;

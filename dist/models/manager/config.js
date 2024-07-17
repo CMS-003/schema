@@ -18,19 +18,6 @@ class Config extends Base {
             versionKey: false,
             excludeIndexes: true,
             collection: 'config_info',
-            virtuals: {
-                id: {
-                    get() {
-                        return this._id;
-                    }
-                }
-            },
-            toJSON: {
-                transform(doc, rest) {
-                    rest.id = rest._id;
-                    delete rest._id;
-                }
-            },
             statics: params.statics || {},
             methods: params.methods || {},
         });

@@ -1,14 +1,14 @@
 import mongoose, { Model } from "mongoose";
 import Base from '../../base.js';
-import { ISns } from '../../@types/types';
-declare class Sns extends Base<ISns> {
+import { IComponent } from '../../@types/types';
+declare class Component extends Base<IComponent> {
     constructor(db: mongoose.Connection, params?: {
         methods?: {
             [key: string]: Function;
         };
         statics?: {
-            [key: string]: (this: Model<ISns>) => any;
+            [key: string]: (this: Model<IComponent>) => any;
         };
     });
 }
-export default Sns;
+export default Component;

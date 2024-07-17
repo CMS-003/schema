@@ -1,9 +1,9 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import Base from '../../base.js';
 import { ICapsule } from '../../@types/types'
 
 class Capsule extends Base<ICapsule> {
-  constructor(db: mongoose.Connection) {
+  constructor(db: mongoose.Connection, params: { methods?: { [key: string]: Function }, statics?: { [key: string]: (this: Model<ICapsule>) => any } } = {}) {
     super();
     const schema = new mongoose.Schema({
       _id: { type: String },
@@ -20,19 +20,8 @@ class Capsule extends Base<ICapsule> {
       versionKey: false,
       excludeIndexes: true,
       collection: 'capsule',
-      virtuals: {
-        id: {
-          get() {
-            return this._id;
-          }
-        }
-      },
-      toJSON: {
-        transform(doc, rest) {
-          rest.id = rest._id;
-          delete rest._id;
-        }
-      }
+      methods: params.methods || {},
+      statics: params.statics || {},
     });
     this.model = db.model<ICapsule>('capsule', schema);
     Base.models.Capsule = this.model;

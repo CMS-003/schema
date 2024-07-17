@@ -11,5 +11,5 @@ import MVerification from "./models/user/verification.js";
 import MCounter from "./models/content/counter.js";
 import MResource from "./models/content/resource.js";
 import MCapsule from './models/timepill/capsule.js';
-import MTask from './models/download/task.js';
+import MTask from './models/crawler/task.js';
 export { MComponent, MComponentType, MConfig, MLog, MProject, MUser, MSns, MVerification, MTemplate, MWidget, MCounter, MResource, MCapsule, MTask, };

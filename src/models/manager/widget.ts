@@ -1,9 +1,9 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import Base from '../../base.js';
 import { IWidget } from '../../@types/types'
 
 class Widget extends Base<IWidget> {
-  constructor(db: mongoose.Connection) {
+  constructor(db: mongoose.Connection, params: { methods?: { [key: string]: Function }, statics?: { [key: string]: (this: Model<IWidget>) => any } } = {}) {
     super();
     const schema = new mongoose.Schema({
       _id: { type: String },
@@ -18,19 +18,8 @@ class Widget extends Base<IWidget> {
       versionKey: false,
       excludeIndexes: true,
       collection: 'widget_info',
-      virtuals: {
-        id: {
-          get() {
-            return this._id;
-          }
-        }
-      },
-      toJSON: {
-        transform(doc, rest) {
-          rest.id = rest._id;
-          delete rest._id;
-        }
-      }
+      methods: params.methods || {},
+      statics: params.statics || {},
     });
     this.model = db.model<IWidget>('widget_info', schema);
     Base.models.Widget = this.model;

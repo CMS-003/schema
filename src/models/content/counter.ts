@@ -1,9 +1,9 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import Base from '../../base.js';
 import { ICounter } from '../../@types/types'
 
 class Counter extends Base<ICounter> {
-  constructor(db: mongoose.Connection) {
+  constructor(db: mongoose.Connection, params: { methods?: { [key: string]: Function }, statics?: { [key: string]: (this: Model<ICounter>) => any } } = {}) {
     super();
     const schema = new mongoose.Schema({
       _id: {
@@ -40,19 +40,8 @@ class Counter extends Base<ICounter> {
       versionKey: false,
       excludeIndexes: true,
       collection: 'counter_info',
-      virtuals: {
-        id: {
-          get() {
-            return this._id;
-          }
-        }
-      },
-      toJSON: {
-        transform(doc, rest) {
-          rest.id = rest._id;
-          delete rest._id;
-        }
-      }
+      statics: params.statics || {},
+      methods: params.methods || {},
     });
     this.model = db.model<ICounter>('counter_info', schema);
     Base.models.Counter = this.model;

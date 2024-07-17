@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { v4 } from "uuid";
 import Base from '../../base.js';
 class Resource extends Base {
-    constructor(db) {
+    constructor(db, params = {}) {
         super();
         const schema = new mongoose.Schema({
             _id: {
@@ -95,19 +95,8 @@ class Resource extends Base {
             versionKey: false,
             excludeIndexes: true,
             collection: 'resource',
-            virtuals: {
-                id: {
-                    get() {
-                        return this._id;
-                    }
-                }
-            },
-            toJSON: {
-                transform(doc, rest) {
-                    rest.id = rest._id;
-                    delete rest._id;
-                }
-            }
+            methods: params.methods || {},
+            statics: params.statics || {},
         });
         this.model = db.model('resource', schema);
         Base.models.Resource = this.model;

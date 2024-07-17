@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import Base from '../../base.js';
 class Template extends Base {
-    constructor(db) {
+    constructor(db, params = {}) {
         super();
         const schema = new mongoose.Schema({
             _id: { type: String },
@@ -24,19 +24,8 @@ class Template extends Base {
             versionKey: false,
             excludeIndexes: true,
             collection: 'template_info',
-            virtuals: {
-                id: {
-                    get() {
-                        return this._id;
-                    }
-                }
-            },
-            toJSON: {
-                transform(doc, rest) {
-                    rest.id = rest._id;
-                    delete rest._id;
-                }
-            }
+            methods: params.methods || {},
+            statics: params.statics || {},
         });
         this.model = db.model('template_info', schema);
         Base.models.Template = this.model;

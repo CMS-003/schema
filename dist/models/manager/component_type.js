@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import Base from '../../base.js';
 class ComponentType extends Base {
-    constructor(db) {
+    constructor(db, params = {}) {
         super();
         const schema = new mongoose.Schema({
             _id: { type: String },
@@ -18,19 +18,8 @@ class ComponentType extends Base {
             versionKey: false,
             excludeIndexes: true,
             collection: 'component_type_info',
-            virtuals: {
-                id: {
-                    get() {
-                        return this._id;
-                    }
-                }
-            },
-            toJSON: {
-                transform(doc, rest) {
-                    rest.id = rest._id;
-                    delete rest._id;
-                }
-            }
+            methods: params.methods || {},
+            statics: params.statics || {},
         });
         this.model = db.model('component_type_info', schema);
         Base.models.ComponentType = this.model;

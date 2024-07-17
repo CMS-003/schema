@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import Base from '../../base.js';
 class Verification extends Base {
-    constructor(db) {
+    constructor(db, params = {}) {
         super();
         const schema = new mongoose.Schema({
             _id: { type: String },
@@ -19,19 +19,8 @@ class Verification extends Base {
             versionKey: false,
             excludeIndexes: true,
             collection: 'verification',
-            virtuals: {
-                id: {
-                    get() {
-                        return this._id;
-                    }
-                }
-            },
-            toJSON: {
-                transform(doc, rest) {
-                    rest.id = rest._id;
-                    delete rest._id;
-                }
-            }
+            methods: params.methods || {},
+            statics: params.statics || {},
         });
         this.model = db.model('verification', schema);
         Base.models.Verification = this.model;

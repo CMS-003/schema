@@ -79,10 +79,6 @@ class Base {
         return this.model;
     }
     create(data) {
-        if (data.id && !data._id) {
-            data._id = data.id;
-            delete data.id;
-        }
         return this.model.create(data);
     }
     destroy(opts) {

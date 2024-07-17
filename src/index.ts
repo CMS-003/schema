@@ -1,10 +1,10 @@
-import MComponent from "./models/manage/component.js";
-import MComponentType from "./models/manage/component_type.js";
-import MConfig from "./models/manage/config.js";
-import MLog from "./models/manage/log.js";
-import MProject from "./models/manage/project.js";
-import MTemplate from "./models/manage/template.js";
-import MWidget from "./models/manage/widget.js";
+import MComponent from "./models/manager/component.js";
+import MComponentType from "./models/manager/component_type.js";
+import MConfig from "./models/manager/config.js";
+import MLog from "./models/manager/log.js";
+import MProject from "./models/manager/project.js";
+import MTemplate from "./models/manager/template.js";
+import MWidget from "./models/manager/widget.js";
 
 import MUser from "./models/user/user.js";
 import MSns from "./models/user/sns.js";
@@ -15,7 +15,7 @@ import MResource from "./models/content/resource.js";
 
 import MCapsule from './models/timepill/capsule.js';
 
-import MTask from './models/download/task.js'
+import MTask from './models/crawler/task.js'
 
 export {
   MComponent,

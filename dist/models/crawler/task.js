@@ -9,7 +9,7 @@ var Status;
     Status[Status["FINISHED"] = 5] = "FINISHED";
 })(Status || (Status = {}));
 class Task extends Base {
-    constructor(db) {
+    constructor(db, params = {}) {
         super();
         const schema = new mongoose.Schema({
             _id: {
@@ -61,19 +61,8 @@ class Task extends Base {
             versionKey: false,
             excludeIndexes: true,
             collection: 'task',
-            virtuals: {
-                id: {
-                    get() {
-                        return this._id;
-                    }
-                }
-            },
-            toJSON: {
-                transform(doc, rest) {
-                    rest.id = rest._id;
-                    delete rest._id;
-                }
-            }
+            methods: params.methods || {},
+            statics: params.statics || {},
         });
         this.model = db.model('task', schema);
         Base.models.Task = this.model;
