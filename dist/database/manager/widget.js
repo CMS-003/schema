@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Base from '#base';
+import Base from '../../base.js';
 class Widget extends Base {
     constructor(db, params = {}) {
         super();

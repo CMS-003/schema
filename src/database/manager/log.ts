@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import Base, { CustomParams } from '#base';
-import { ILog } from '#@types/manager.js'
+import Base, { CustomParams } from '../../base.js';
+import { ILog } from '../../@types/manager.js'
 
 class Log extends Base<ILog> {
   constructor(db: mongoose.Connection, params: CustomParams<ILog> = {}) {

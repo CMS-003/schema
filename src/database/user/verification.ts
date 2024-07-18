@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import Base, { CustomParams } from '#base';
-import { IVerification } from '#@types/user.js'
+import Base, { CustomParams } from '../../base.js';
+import { IVerification } from '../../@types/user.js'
 
 // 1 registry 2 login 3 update pass 4 forgot pass 5 logoff 6 bind
 enum Type {

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Base from '#base';
+import Base from '../../base.js';
 // 1 registry 2 login 3 update pass 4 forgot pass 5 logoff 6 bind
 var Type;
 (function (Type) {
