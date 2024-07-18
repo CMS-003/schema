@@ -17,23 +17,36 @@ class Counter extends Base<ICounter> {
       },
       views: {
         type: Number,
-        default: 0,
       },
       comments: {
         type: Number,
-        default: 0,
       },
-      likes: {
+      followings: {
         type: Number,
-        default: 0,
+        comment: '关注数',
+      },
+      followers: {
+        type: Number,
+        comment: '粉丝数',
+      },
+      subscribers: {
+        type: Number,
+        comment: '订阅数',
       },
       shares: {
         type: Number,
-        default: 0,
       },
-      marks: {
+      collects: {
         type: Number,
-        default: 0,
+        comment: '收藏数',
+      },
+      likes: {
+        type: Number,
+        comment: '赞/喜欢',
+      },
+      dislikes: {
+        type: Number,
+        comment: '踩/喜欢',
       },
     }, {
       strict: false,
