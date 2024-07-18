@@ -121,29 +121,29 @@ class Base<T> {
     }
     return this.getInfo(opts as OPT);
   }
-  getAll(opts: OPT = {}) {
+  getAll(opts: OPT = {}): Promise<T[]> {
     const opt = this._init(opts);
     return this.model.find(opt.where).select(opt.attrs).sort(opt.sort).lean(opt.lean);
   }
-  count(opts = {}) {
+  count(opts = {}): Promise<Number> {
     const opt = this._init(opts);
     return this.model.countDocuments(opt.where);
   }
-  async sum(opts = {}) {
+  async sum(opts = {}): Promise<Number> {
     const opt = this._init(opts);
     const sum = await this.model.aggregate([
       { $match: opt.where },
       { $group: { _id: null, count: { $sum: '$' + opt.sum } } }]);
     return sum.length ? sum[0].count : 0;
   }
-  getList(opts: OPT = {}) {
+  getList(opts: OPT = {}): Promise<T[]> {
     const opt = this._init(opts);
     return this.model.find(opt.where).select(opt.attrs).limit(opt.limit).skip(opt.offset).sort(opt.sort).lean(opt.lean);
   }
   async getInfo(opts: OPT = {}) {
     const opt = this._init(opts);
     const result = await this.model.findOne(opt.where).select(opt.attrs).skip(opt.offset).sort(opt.sort).lean(opt.lean);
-    return result;
+    return result as T & { [key: string]: Function };
   }
   getAttributes() {
     const fields = this.model.schema.paths;
