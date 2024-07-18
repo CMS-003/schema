@@ -5,7 +5,7 @@ class Star extends Base {
         super();
         const schema = new mongoose.Schema({
             _id: { type: String },
-            uid: { type: String },
+            user_id: { type: String },
             title: { type: String },
             cover: { type: String },
             resource_id: { type: String },

@@ -1,5 +1,5 @@
-import mongoose, { Model } from "mongoose";
-import Base from '../../base.js';
+import mongoose from "mongoose";
+import Base, { CustomParams } from '../../base.js';
 import { ITask } from '../../@types/crawler.js'
 
 enum Status {
@@ -10,7 +10,7 @@ enum Status {
   FINISHED = 5,
 }
 class Task extends Base<ITask> {
-  constructor(db: mongoose.Connection, params: { methods?: { [key: string]: Function }, statics?: { [key: string]: (this: Model<ITask>) => any } } = {}) {
+  constructor(db: mongoose.Connection, params: CustomParams<ITask> = {}) {
     super();
     const schema = new mongoose.Schema({
       _id: {

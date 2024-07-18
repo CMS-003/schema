@@ -1,9 +1,9 @@
-import mongoose, { Model } from "mongoose";
-import Base from '../../base.js';
+import mongoose from "mongoose";
+import Base, { CustomParams } from '../../base.js';
 import { ISns } from '../../@types/user.js'
 
 class Sns extends Base<ISns> {
-  constructor(db: mongoose.Connection, params: { methods?: { [key: string]: Function }, statics?: { [key: string]: (this: Model<ISns>) => any } } = {}) {
+  constructor(db: mongoose.Connection, params: CustomParams<ISns> = {}) {
     super();
     const schema = new mongoose.Schema({
       _id: { type: String },

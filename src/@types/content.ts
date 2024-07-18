@@ -92,13 +92,3 @@ export interface IVersion {
   version: string;
   createdAt: Date;
 }
-export interface IFeedback {
-  _id: string;
-  resource_title: string;
-  resource_id: string;
-  content: string;
-  comment: string;
-  user_id: string;
-  status: number;
-  createdAt: Date;
-}

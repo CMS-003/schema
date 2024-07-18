@@ -1,6 +1,6 @@
 export interface IAccount {
   _id: string;
-  uid: string;
+  user_id: string;
   name: string;
   account: string;
   email: string;
@@ -13,7 +13,7 @@ export interface IAccount {
 }
 export interface IPass {
   _id: string;
-  aid: string;
+  account_id: string;
   password: string;
   createdAt: Date;
 }

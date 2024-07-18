@@ -43,7 +43,7 @@ export interface IHistory {
 }
 export interface IStar {
   _id: string;
-  uid: string;
+  user_id: string;
   resource_id: string;
   resource_type: string;
   title: string;
@@ -62,4 +62,14 @@ export interface IVerification {
   createdAt: Date;
   expiredAt: Date;
   status: number;
+}
+export interface IFeedback {
+  _id: string;
+  resource_title: string;
+  resource_id: string;
+  content: string;
+  comment: string;
+  user_id: string;
+  status: number;
+  createdAt: Date;
 }

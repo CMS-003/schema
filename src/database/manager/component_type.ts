@@ -1,11 +1,9 @@
-import mongoose, { Model } from "mongoose";
-import Base from '../../base.js';
+import mongoose from "mongoose";
+import Base, { CustomParams } from '../../base.js';
 import { IComponentType } from '../../@types/manager.js'
 
-
-
 class ComponentType extends Base<IComponentType> {
-  constructor(db: mongoose.Connection, params: { methods?: { [key: string]: Function }, statics?: { [key: string]: (this: Model<IComponentType>) => any } } = {}) {
+  constructor(db: mongoose.Connection, params: CustomParams<IComponentType> = {}) {
     super();
     const schema = new mongoose.Schema({
       _id: { type: String },

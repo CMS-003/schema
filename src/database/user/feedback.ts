@@ -1,9 +1,9 @@
-import mongoose, { Model } from "mongoose";
-import Base from '../../base.js';
-import { IFeedback } from '../../@types/content.js'
+import mongoose from "mongoose";
+import Base, { CustomParams } from '../../base.js';
+import { IFeedback } from '../../@types/user.js'
 
 class Feedback extends Base<IFeedback> {
-  constructor(db: mongoose.Connection, params: { methods?: { [key: string]: Function }, statics?: { [key: string]: (this: Model<IFeedback>) => any } } = {}) {
+  constructor(db: mongoose.Connection, params: CustomParams<IFeedback> = {}) {
     super();
     const schema = new mongoose.Schema({
       _id: {

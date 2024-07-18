@@ -1,9 +1,9 @@
-import mongoose, { Model } from "mongoose";
-import Base from '../../base.js';
+import mongoose from "mongoose";
+import Base, { CustomParams } from '../../base.js';
 import { IVersion } from '../../@types/content.js'
 
 class Version extends Base<IVersion> {
-  constructor(db: mongoose.Connection, params: { methods?: { [key: string]: Function }, statics?: { [key: string]: (this: Model<IVersion>) => any } } = {}) {
+  constructor(db: mongoose.Connection, params: CustomParams<IVersion> = {}) {
     super();
     const schema = new mongoose.Schema({
       _id: {

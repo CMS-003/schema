@@ -1,13 +1,13 @@
-import mongoose, { Model } from "mongoose";
-import Base from '../../base.js';
+import mongoose from "mongoose";
+import Base, { CustomParams } from '../../base.js';
 import { IStar } from '../../@types/user.js'
 
 class Star extends Base<IStar> {
-  constructor(db: mongoose.Connection, params: { methods?: { [key: string]: Function }, statics?: { [key: string]: (this: Model<IStar>) => any } } = {}) {
+  constructor(db: mongoose.Connection, params: CustomParams<IStar> = {}) {
     super();
     const schema = new mongoose.Schema({
       _id: { type: String },
-      uid: { type: String },
+      user_id: { type: String },
       title: { type: String },
       cover: { type: String },
       resource_id: { type: String },

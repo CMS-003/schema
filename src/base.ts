@@ -13,7 +13,12 @@ export interface OPT<T = void> {
   offset?: number,
   limit?: number,
 }
-
+export interface CustomParams<T> {
+  methods?: {
+    [key: string]: (this: T & { [key: string]: Function }, ...args: any[]) => any;
+  };
+  statics?: { [key: string]: (this: Model<T>) => any },
+}
 class Base<T> {
   static models: { [key: string]: Model<any> } = {};
   model: null | Model<T>;

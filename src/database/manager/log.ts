@@ -1,9 +1,9 @@
-import mongoose, { Model } from "mongoose";
-import Base from '../../base.js';
+import mongoose from "mongoose";
+import Base, { CustomParams } from '../../base.js';
 import { ILog } from '../../@types/manager.js'
 
 class Log extends Base<ILog> {
-  constructor(db: mongoose.Connection, params: { methods?: { [key: string]: Function }, statics?: { [key: string]: (this: Model<ILog>) => any } } = {}) {
+  constructor(db: mongoose.Connection, params: CustomParams<ILog> = {}) {
     super();
     const schema = new mongoose.Schema({
       _id: { type: String },

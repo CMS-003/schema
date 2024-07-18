@@ -1,10 +1,9 @@
-
-import mongoose, { Model } from "mongoose";
-import Base from '../../base.js';
+import mongoose from "mongoose";
+import Base, { CustomParams } from '../../base.js';
 import { IMediaLyrics } from '../../@types/content.js'
 
-class Image extends Base<IMediaLyrics> {
-  constructor(db: mongoose.Connection, params: { methods?: { [key: string]: Function }, statics?: { [key: string]: (this: Model<IMediaLyrics>) => any } } = {}) {
+class MediaLyrics extends Base<IMediaLyrics> {
+  constructor(db: mongoose.Connection, params: CustomParams<IMediaLyrics> = {}) {
     super();
     const schema = new mongoose.Schema({
       _id: {
@@ -37,4 +36,4 @@ class Image extends Base<IMediaLyrics> {
   }
 }
 
-export default Image;
+export default MediaLyrics;

@@ -1,10 +1,10 @@
-import mongoose, { Model } from "mongoose";
+import mongoose from "mongoose";
 import { v4 } from "uuid";
-import Base from '../../base.js';
+import Base, { CustomParams } from '../../base.js';
 import { IResource } from '../../@types/content.js'
 
 class Resource extends Base<IResource> {
-  constructor(db: mongoose.Connection, params: { methods?: { [key: string]: Function }, statics?: { [key: string]: (this: Model<IResource>) => any } } = {}) {
+  constructor(db: mongoose.Connection, params: CustomParams<IResource> = {}) {
     super();
     const schema = new mongoose.Schema({
       _id: {

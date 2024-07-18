@@ -1,5 +1,5 @@
-import mongoose, { Model } from "mongoose";
-import Base from '../../base.js';
+import mongoose from "mongoose";
+import Base, { CustomParams } from '../../base.js';
 import { IVerification } from '../../@types/user.js'
 
 // 1 registry 2 login 3 update pass 4 forgot pass 5 logoff 6 bind
@@ -13,7 +13,7 @@ enum Type {
 }
 
 class Verification extends Base<IVerification> {
-  constructor(db: mongoose.Connection, params: { methods?: { [key: string]: Function }, statics?: { [key: string]: (this: Model<IVerification>) => any } } = {}) {
+  constructor(db: mongoose.Connection, params: CustomParams<IVerification> = {}) {
     super();
     const schema = new mongoose.Schema({
       _id: { type: String },

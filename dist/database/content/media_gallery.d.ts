@@ -1,14 +1,7 @@
-import mongoose, { Model } from "mongoose";
-import Base from '../../base.js';
+import mongoose from "mongoose";
+import Base, { CustomParams } from '../../base.js';
 import { IMediaGallery } from '../../@types/content.js';
 declare class MediaGallery extends Base<IMediaGallery> {
-    constructor(db: mongoose.Connection, params?: {
-        methods?: {
-            [key: string]: Function;
-        };
-        statics?: {
-            [key: string]: (this: Model<IMediaGallery>) => any;
-        };
-    });
+    constructor(db: mongoose.Connection, params?: CustomParams<IMediaGallery>);
 }
 export default MediaGallery;

@@ -1,13 +1,13 @@
-import mongoose, { Model } from "mongoose";
-import Base from '../../base.js';
+import mongoose from "mongoose";
+import Base, { CustomParams } from '../../base.js';
 import { IAccount } from '../../@types/security.js'
 
 class Account extends Base<IAccount> {
-  constructor(db: mongoose.Connection, params: { methods?: { [key: string]: Function }, statics?: { [key: string]: (this: Model<IAccount>) => any } } = {}) {
+  constructor(db: mongoose.Connection, params: CustomParams<IAccount> = {}) {
     super();
     const schema = new mongoose.Schema({
       _id: { type: String },
-      uid: { type: String },
+      user_id: { type: String },
       name: { type: String },
       account: { type: String },
       email: { type: String },

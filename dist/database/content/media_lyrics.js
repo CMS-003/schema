@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import Base from '../../base.js';
-class Image extends Base {
+class MediaLyrics extends Base {
     constructor(db, params = {}) {
         super();
         const schema = new mongoose.Schema({
@@ -33,4 +33,4 @@ class Image extends Base {
         Base.models.MediaLyrics = this.model;
     }
 }
-export default Image;
+export default MediaLyrics;

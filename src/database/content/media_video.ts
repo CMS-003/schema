@@ -1,10 +1,9 @@
-
-import mongoose, { Model } from "mongoose";
-import Base from '../../base.js';
+import mongoose from "mongoose";
+import Base, { CustomParams } from '../../base.js';
 import { IMediaVideo } from '../../@types/content.js'
 
 class MediaVideo extends Base<IMediaVideo> {
-  constructor(db: mongoose.Connection, params: { methods?: { [key: string]: Function }, statics?: { [key: string]: (this: Model<IMediaVideo>) => any } } = {}) {
+  constructor(db: mongoose.Connection, params: CustomParams<IMediaVideo> = {}) {
     super();
     const schema = new mongoose.Schema({
       _id: {

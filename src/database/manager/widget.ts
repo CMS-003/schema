@@ -1,9 +1,9 @@
-import mongoose, { Model } from "mongoose";
-import Base from '../../base.js';
+import mongoose from "mongoose";
+import Base, { CustomParams } from '../../base.js';
 import { IWidget } from '../../@types/manager.js'
 
 class Widget extends Base<IWidget> {
-  constructor(db: mongoose.Connection, params: { methods?: { [key: string]: Function }, statics?: { [key: string]: (this: Model<IWidget>) => any } } = {}) {
+  constructor(db: mongoose.Connection, params: CustomParams<IWidget> = {}) {
     super();
     const schema = new mongoose.Schema({
       _id: { type: String },
