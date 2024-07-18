@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import Base, { CustomParams } from '../../base.js';
-import { IVersion } from '../../@types/content.js'
+import Base, { CustomParams } from '#base';
+import { IVersion } from '#@types/content.js'
 
 class Version extends Base<IVersion> {
   constructor(db: mongoose.Connection, params: CustomParams<IVersion> = {}) {

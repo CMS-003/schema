@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import Base, { CustomParams } from '../../base.js';
-import { ISns } from '../../@types/user.js'
+import Base, { CustomParams } from '#base';
+import { ISns } from '#@types/user.js'
 
 class Sns extends Base<ISns> {
   constructor(db: mongoose.Connection, params: CustomParams<ISns> = {}) {

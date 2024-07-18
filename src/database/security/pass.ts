@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import Base, { CustomParams } from '../../base.js';
-import { IPass } from '../../@types/security.js'
+import Base, { CustomParams } from '#base';
+import { IPass } from '#@types/security.js'
 
 class Pass extends Base<IPass> {
   constructor(db: mongoose.Connection, params: CustomParams<IPass> = {}) {

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Base from '../../base.js';
+import Base from '#base';
 class MediaGallery extends Base {
     constructor(db, params = {}) {
         super();

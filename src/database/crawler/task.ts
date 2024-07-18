@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import Base, { CustomParams } from '../../base.js';
-import { ITask } from '../../@types/crawler.js'
+import Base, { CustomParams } from '#base';
+import { ITask } from '#@types/crawler.js'
 
 enum Status {
   INIT = 1,

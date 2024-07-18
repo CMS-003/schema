@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import Base, { CustomParams } from '../../base.js';
-import { IMediaImage } from '../../@types/content.js'
+import Base, { CustomParams } from '#base';
+import { IMediaImage } from '#@types/content.js'
 
 class MediaImage extends Base<IMediaImage> {
   constructor(db: mongoose.Connection, params: CustomParams<IMediaImage> = {}) {

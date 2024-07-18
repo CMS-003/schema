@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import Base, { CustomParams } from '../../base.js';
-import { ITemplate } from '../../@types/manager.js'
+import Base, { CustomParams } from '#base';
+import { ITemplate } from '#@types/manager.js'
 
 class Template extends Base<ITemplate> {
   constructor(db: mongoose.Connection, params: CustomParams<ITemplate> = {}) {

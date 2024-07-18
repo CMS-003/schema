@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { v4 } from "uuid";
-import Base from '../../base.js';
+import Base from '#base';
 class Resource extends Base {
     constructor(db, params = {}) {
         super();
