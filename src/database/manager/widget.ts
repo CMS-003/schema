@@ -17,11 +17,11 @@ class Widget extends Base<IWidget> {
       strict: false,
       versionKey: false,
       excludeIndexes: true,
-      collection: 'widget_info',
+      collection: 'Widget',
       methods: params.methods || {},
       statics: params.statics || {},
     });
-    this.model = db.model<IWidget>('widget_info', schema);
+    this.model = db.model<IWidget>('Widget', schema);
     Base.models.Widget = this.model;
   }
 }

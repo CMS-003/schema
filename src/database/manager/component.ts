@@ -28,11 +28,11 @@ class Component extends Base<IComponent> {
       strict: false,
       versionKey: false,
       excludeIndexes: true,
-      collection: 'component_info',
+      collection: 'Component',
       methods: params.methods || {},
       statics: params.statics || {},
     });
-    this.model = db.model<IComponent>('component_info', schema);
+    this.model = db.model<IComponent>('Component', schema);
     Base.models.Component = this.model;
   }
 }

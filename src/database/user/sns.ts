@@ -23,11 +23,11 @@ class Sns extends Base<ISns> {
       strict: false,
       versionKey: false,
       excludeIndexes: true,
-      collection: 'sns_info',
+      collection: 'Sns',
       methods: params.methods || {},
       statics: params.statics || {},
     });
-    this.model = db.model<ISns>('sns_info', schema);
+    this.model = db.model<ISns>('Sns', schema);
     Base.models.Sns = this.model;
   }
 }

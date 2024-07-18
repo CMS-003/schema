@@ -25,11 +25,11 @@ class Template extends Base<ITemplate> {
       strict: false,
       versionKey: false,
       excludeIndexes: true,
-      collection: 'template_info',
+      collection: 'Template',
       methods: params.methods || {},
       statics: params.statics || {},
     });
-    this.model = db.model<ITemplate>('template_info', schema);
+    this.model = db.model<ITemplate>('Template', schema);
     Base.models.Template = this.model;
   }
 }

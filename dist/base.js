@@ -127,7 +127,11 @@ class Base {
             console.log(`字段: ${field}, 类型: ${fields[field].instance}`);
             result.push({
                 field,
-                type: fields[field].instance
+                type: fields[field].instance,
+                options: fields[field].options,
+                default: fields[field].defaultOptions,
+                rerquired: fields[field].isRequired,
+                schema: fields[field].schema,
             });
         }
         return result;

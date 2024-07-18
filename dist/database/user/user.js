@@ -19,11 +19,11 @@ class User extends Base {
             strict: false,
             versionKey: false,
             excludeIndexes: true,
-            collection: 'user_info',
+            collection: 'User',
             statics: params.statics || {},
             methods: params.methods || {},
         });
-        this.model = db.model('user_info', schema);
+        this.model = db.model('User', schema);
         Base.models.User = this.model;
     }
 }

@@ -15,11 +15,11 @@ class Log extends Base<ILog> {
     }, {
       strict: false,
       versionKey: false,
-      collection: 'log_info',
+      collection: 'Log',
       methods: params.methods || {},
       statics: params.statics || {},
     });
-    this.model = db.model<ILog>('log_info', schema);
+    this.model = db.model<ILog>('Log', schema);
     Base.models.Log = this.model;
   }
 }

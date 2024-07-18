@@ -15,11 +15,11 @@ class Project extends Base {
             strict: false,
             versionKey: false,
             excludeIndexes: true,
-            collection: 'project_info',
+            collection: 'Project',
             methods: params.methods || {},
             statics: params.statics || {},
         });
-        this.model = db.model('project_info', schema);
+        this.model = db.model('Project', schema);
         Base.models.Project = this.model;
     }
 }

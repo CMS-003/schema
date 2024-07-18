@@ -19,11 +19,11 @@ class Config extends Base<IConfig> {
       strict: false,
       versionKey: false,
       excludeIndexes: true,
-      collection: 'config_info',
+      collection: 'Config',
       statics: params.statics || {},
       methods: params.methods || {},
     });
-    this.model = db.model<IConfig>('config_info', schema);
+    this.model = db.model<IConfig>('Config', schema);
     Base.models.Config = this.model;
   }
 }

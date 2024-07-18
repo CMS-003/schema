@@ -61,11 +61,11 @@ class Task extends Base<ITask> {
       strict: false,
       versionKey: false,
       excludeIndexes: true,
-      collection: 'task',
+      collection: 'Task',
       methods: params.methods || {},
       statics: params.statics || {},
     });
-    this.model = db.model<ITask>('task', schema);
+    this.model = db.model<ITask>('Task', schema);
     Base.models.Task = this.model;
   }
 }

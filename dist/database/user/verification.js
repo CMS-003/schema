@@ -28,11 +28,11 @@ class Verification extends Base {
             strict: false,
             versionKey: false,
             excludeIndexes: true,
-            collection: 'verification',
+            collection: 'Verification',
             methods: params.methods || {},
             statics: params.statics || {},
         });
-        this.model = db.model('verification', schema);
+        this.model = db.model('Verification', schema);
         Base.models.Verification = this.model;
     }
 }

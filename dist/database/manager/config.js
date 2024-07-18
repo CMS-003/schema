@@ -17,11 +17,11 @@ class Config extends Base {
             strict: false,
             versionKey: false,
             excludeIndexes: true,
-            collection: 'config_info',
+            collection: 'Config',
             statics: params.statics || {},
             methods: params.methods || {},
         });
-        this.model = db.model('config_info', schema);
+        this.model = db.model('Config', schema);
         Base.models.Config = this.model;
     }
 }

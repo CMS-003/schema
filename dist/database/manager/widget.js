@@ -15,11 +15,11 @@ class Widget extends Base {
             strict: false,
             versionKey: false,
             excludeIndexes: true,
-            collection: 'widget_info',
+            collection: 'Widget',
             methods: params.methods || {},
             statics: params.statics || {},
         });
-        this.model = db.model('widget_info', schema);
+        this.model = db.model('Widget', schema);
         Base.models.Widget = this.model;
     }
 }

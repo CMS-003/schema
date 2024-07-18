@@ -60,11 +60,11 @@ class Task extends Base {
             strict: false,
             versionKey: false,
             excludeIndexes: true,
-            collection: 'task',
+            collection: 'Task',
             methods: params.methods || {},
             statics: params.statics || {},
         });
-        this.model = db.model('task', schema);
+        this.model = db.model('Task', schema);
         Base.models.Task = this.model;
     }
 }

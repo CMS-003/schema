@@ -30,11 +30,11 @@ class Verification extends Base<IVerification> {
       strict: false,
       versionKey: false,
       excludeIndexes: true,
-      collection: 'verification',
+      collection: 'Verification',
       methods: params.methods || {},
       statics: params.statics || {},
     });
-    this.model = db.model<IVerification>('verification', schema);
+    this.model = db.model<IVerification>('Verification', schema);
     Base.models.Verification = this.model;
   }
 }

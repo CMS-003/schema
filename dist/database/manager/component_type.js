@@ -17,11 +17,11 @@ class ComponentType extends Base {
             strict: false,
             versionKey: false,
             excludeIndexes: true,
-            collection: 'component_type_info',
+            collection: 'ComponentType',
             methods: params.methods || {},
             statics: params.statics || {},
         });
-        this.model = db.model('component_type_info', schema);
+        this.model = db.model('ComponentType', schema);
         Base.models.ComponentType = this.model;
     }
 }
