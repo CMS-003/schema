@@ -1,5 +1,69 @@
 import _ from 'lodash'
-import { Model, UpdateQuery, UpdateWithAggregationPipeline } from 'mongoose';
+import { Model, UpdateQuery, UpdateWithAggregationPipeline, Schema } from 'mongoose';
+
+type IJonSchema = {
+  type?: string;
+  format?: string;
+  descrition?: string;
+  enum?: any;
+  comment?: string;
+  default?: any;
+  properties: { [key: string]: IJonSchema };
+  items?: IJonSchema[];
+  required?: string[];
+  oneOf?: { type: string }[];
+}
+
+function getJsonSchema(schema: Schema): IJonSchema {
+  const json: IJonSchema = {
+    type: 'object',
+    properties: {},
+  };
+  const required: string[] = [];
+  schema.eachPath((path, xchma) => {
+    if (path === '_id') {
+      return;
+    }
+    const o = json.properties[path];
+    const type = xchma.options.type instanceof Schema ? 'object' : (typeof xchma.options.type === 'function' ? xchma.options.type.name.toLowerCase() : (_.isArray(xchma.options.type) ? 'array' : xchma.options.type));
+    o.type = type;
+    if (_.get(xchma, 'options.required')) {
+      required.push(path);
+    }
+    if (type === 'object' && xchma.schema) {
+      json.properties[path] = getJsonSchema(xchma.schema);
+    }
+    if (!_.isNil(xchma.options.comment)) {
+      o.comment = xchma.options.comment;
+    }
+    if (!_.isNil(xchma.options.enum)) {
+      o.enum = xchma.options.enum;
+    }
+    if (!_.isFunction(xchma.options.default)) {
+      o.default = xchma.options.default;
+    }
+    if (type === 'date') {
+      o.type = 'string';
+      o.format = 'date-time';
+    }
+    if (xchma.options.type.name === 'SchemaMixed') {
+      delete o.type;
+      o.oneOf = [
+        { type: 'string' },
+        { type: 'number' },
+        { type: 'boolean' },
+        { type: 'object' },
+      ]
+    }
+    if (type === 'array') {
+      o.items = xchma.schema ? getJsonSchema(xchma.schema) : xchma.options.type.map((t: any) => t.type ? t.type.name : t.name).map((t: any) => ({ type: t.toLowerCase() }));
+    }
+  });
+  if (required.length !== 0) {
+    json.required = required;
+  }
+  return json;
+}
 
 export interface OPT<T = void> {
   sum?: string;
@@ -156,6 +220,10 @@ class Base<T> {
       })
     }
     return result;
+  }
+  getJsonSchema() {
+    const json = getJsonSchema(this.model.schema);
+    return json;
   }
 }
 

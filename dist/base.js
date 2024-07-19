@@ -1,4 +1,55 @@
 import _ from 'lodash';
+import { Schema } from 'mongoose';
+function getJsonSchema(schema) {
+    const json = {
+        type: 'object',
+        properties: {},
+    };
+    const required = [];
+    schema.eachPath((path, xchma) => {
+        if (path === '_id') {
+            return;
+        }
+        const o = json.properties[path];
+        const type = xchma.options.type instanceof Schema ? 'object' : (typeof xchma.options.type === 'function' ? xchma.options.type.name.toLowerCase() : (_.isArray(xchma.options.type) ? 'array' : xchma.options.type));
+        o.type = type;
+        if (_.get(xchma, 'options.required')) {
+            required.push(path);
+        }
+        if (type === 'object' && xchma.schema) {
+            json.properties[path] = getJsonSchema(xchma.schema);
+        }
+        if (!_.isNil(xchma.options.comment)) {
+            o.comment = xchma.options.comment;
+        }
+        if (!_.isNil(xchma.options.enum)) {
+            o.enum = xchma.options.enum;
+        }
+        if (!_.isFunction(xchma.options.default)) {
+            o.default = xchma.options.default;
+        }
+        if (type === 'date') {
+            o.type = 'string';
+            o.format = 'date-time';
+        }
+        if (xchma.options.type.name === 'SchemaMixed') {
+            delete o.type;
+            o.oneOf = [
+                { type: 'string' },
+                { type: 'number' },
+                { type: 'boolean' },
+                { type: 'object' },
+            ];
+        }
+        if (type === 'array') {
+            o.items = xchma.schema ? getJsonSchema(xchma.schema) : xchma.options.type.map((t) => t.type ? t.type.name : t.name).map((t) => ({ type: t.toLowerCase() }));
+        }
+    });
+    if (required.length !== 0) {
+        json.required = required;
+    }
+    return json;
+}
 class Base {
     static models = {};
     model;
@@ -127,14 +178,14 @@ class Base {
             console.log(`字段: ${field}, 类型: ${fields[field].instance}`);
             result.push({
                 field,
-                type: fields[field].instance,
-                options: fields[field].options,
-                default: fields[field].defaultOptions,
-                rerquired: fields[field].isRequired,
-                schema: fields[field].schema,
+                type: fields[field].instance
             });
         }
         return result;
+    }
+    getJsonSchema() {
+        const json = getJsonSchema(this.model.schema);
+        return json;
     }
 }
 export default Base;
