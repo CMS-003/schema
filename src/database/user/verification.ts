@@ -2,14 +2,13 @@ import mongoose from "mongoose";
 import Base, { CustomParams } from '../../base.js';
 import { IVerification } from '../../@types/user.js'
 
-// 1 registry 2 login 3 update pass 4 forgot pass 5 logoff 6 bind
-enum Type {
-  register = 1,
-  login = 2,
-  update_pass = 3,
-  forgot_pass = 4,
-  logoff = 5,
-  bind = 6,
+const Type = {
+  register: 1,
+  login: 2,
+  update_pass: 3,
+  forgot_pass: 4,
+  logoff: 5,
+  bind: 6,
 }
 
 class Verification extends Base<IVerification> {
@@ -18,7 +17,7 @@ class Verification extends Base<IVerification> {
     const schema = new mongoose.Schema({
       _id: { type: String },
       method: { type: String },
-      type: { type: Number, enum: Type },
+      type: { type: Number, enum: Object.values(Type) },
       code: { type: String },
       content: { type: String },
       user_id: { type: String },

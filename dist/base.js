@@ -10,8 +10,8 @@ function getJsonSchema(schema) {
         if (path === '_id') {
             return;
         }
-        const o = json.properties[path];
         const type = xchma.options.type instanceof Schema ? 'object' : (typeof xchma.options.type === 'function' ? xchma.options.type.name.toLowerCase() : (_.isArray(xchma.options.type) ? 'array' : xchma.options.type));
+        const o = {};
         o.type = type;
         if (_.get(xchma, 'options.required')) {
             required.push(path);
@@ -44,6 +44,7 @@ function getJsonSchema(schema) {
         if (type === 'array') {
             o.items = xchma.schema ? getJsonSchema(xchma.schema) : xchma.options.type.map((t) => t.type ? t.type.name : t.name).map((t) => ({ type: t.toLowerCase() }));
         }
+        json.properties[path] = o;
     });
     if (required.length !== 0) {
         json.required = required;

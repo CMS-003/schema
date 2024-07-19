@@ -24,7 +24,7 @@
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="mongoose/types/inferrawdoctype" />
 import { Model, UpdateQuery, UpdateWithAggregationPipeline } from 'mongoose';
-type IJonSchema = {
+type IJsonSchema = {
     type?: string;
     format?: string;
     descrition?: string;
@@ -32,9 +32,9 @@ type IJonSchema = {
     comment?: string;
     default?: any;
     properties: {
-        [key: string]: IJonSchema;
+        [key: string]: IJsonSchema;
     };
-    items?: IJonSchema[];
+    items?: IJsonSchema[];
     required?: string[];
     oneOf?: {
         type: string;
@@ -92,6 +92,6 @@ declare class Base<T> {
         field: string;
         type: string;
     }[];
-    getJsonSchema(): IJonSchema;
+    getJsonSchema(): IJsonSchema;
 }
 export default Base;

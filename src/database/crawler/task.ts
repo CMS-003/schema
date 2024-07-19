@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 import Base, { CustomParams } from '../../base.js';
 import { ITask } from '../../@types/crawler.js'
 
-enum Status {
-  INIT = 1,
-  DOWNLOADING = 2,
-  DOWNLOADED = 3,
-  FAIL = 4,
-  FINISHED = 5,
+const Status = {
+  INIT: 1,
+  DOWNLOADING: 2,
+  DOWNLOADED: 3,
+  FAIL: 4,
+  FINISHED: 5,
 }
 class Task extends Base<ITask> {
   constructor(db: mongoose.Connection, params: CustomParams<ITask> = {}) {
@@ -43,7 +43,7 @@ class Task extends Base<ITask> {
       },
       status: {
         type: Number,
-        enum: Status,
+        enum: Object.values(Status),
         default: 1,
       },
       transcode: {

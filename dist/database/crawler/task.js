@@ -1,13 +1,12 @@
 import mongoose from "mongoose";
 import Base from '../../base.js';
-var Status;
-(function (Status) {
-    Status[Status["INIT"] = 1] = "INIT";
-    Status[Status["DOWNLOADING"] = 2] = "DOWNLOADING";
-    Status[Status["DOWNLOADED"] = 3] = "DOWNLOADED";
-    Status[Status["FAIL"] = 4] = "FAIL";
-    Status[Status["FINISHED"] = 5] = "FINISHED";
-})(Status || (Status = {}));
+const Status = {
+    INIT: 1,
+    DOWNLOADING: 2,
+    DOWNLOADED: 3,
+    FAIL: 4,
+    FINISHED: 5,
+};
 class Task extends Base {
     constructor(db, params = {}) {
         super();
@@ -42,7 +41,7 @@ class Task extends Base {
             },
             status: {
                 type: Number,
-                enum: Status,
+                enum: Object.values(Status),
                 default: 1,
             },
             transcode: {

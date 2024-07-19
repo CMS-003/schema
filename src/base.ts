@@ -1,21 +1,21 @@
 import _ from 'lodash'
 import { Model, UpdateQuery, UpdateWithAggregationPipeline, Schema } from 'mongoose';
 
-type IJonSchema = {
+type IJsonSchema = {
   type?: string;
   format?: string;
   descrition?: string;
   enum?: any;
   comment?: string;
   default?: any;
-  properties: { [key: string]: IJonSchema };
-  items?: IJonSchema[];
+  properties: { [key: string]: IJsonSchema };
+  items?: IJsonSchema[];
   required?: string[];
   oneOf?: { type: string }[];
 }
 
-function getJsonSchema(schema: Schema): IJonSchema {
-  const json: IJonSchema = {
+function getJsonSchema(schema: Schema): IJsonSchema {
+  const json: IJsonSchema = {
     type: 'object',
     properties: {},
   };
@@ -24,8 +24,8 @@ function getJsonSchema(schema: Schema): IJonSchema {
     if (path === '_id') {
       return;
     }
-    const o = json.properties[path];
     const type = xchma.options.type instanceof Schema ? 'object' : (typeof xchma.options.type === 'function' ? xchma.options.type.name.toLowerCase() : (_.isArray(xchma.options.type) ? 'array' : xchma.options.type));
+    const o: any = {};
     o.type = type;
     if (_.get(xchma, 'options.required')) {
       required.push(path);
@@ -58,6 +58,7 @@ function getJsonSchema(schema: Schema): IJonSchema {
     if (type === 'array') {
       o.items = xchma.schema ? getJsonSchema(xchma.schema) : xchma.options.type.map((t: any) => t.type ? t.type.name : t.name).map((t: any) => ({ type: t.toLowerCase() }));
     }
+    json.properties[path] = o;
   });
   if (required.length !== 0) {
     json.required = required;
