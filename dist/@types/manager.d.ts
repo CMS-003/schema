@@ -102,3 +102,17 @@ export interface ISchedule {
     status: number;
     createdAt: Date;
 }
+export interface IView {
+    _id: string;
+    name: string;
+    type: string;
+    table: string;
+    order: number;
+    widgets: {
+        _id: false;
+        id: string;
+        field: string;
+        value: any;
+        optionValue?: any;
+    };
+}

@@ -6,6 +6,7 @@ import MProject from "./database/manager/project.js";
 import MTemplate from "./database/manager/template.js";
 import MWidget from "./database/manager/widget.js";
 import MSchedule from './database/manager/schedule.js'
+import MView from './database/manager/view.js'
 
 import MUser from "./database/user/user.js";
 import MSns from "./database/user/sns.js";
@@ -41,6 +42,7 @@ export {
   MTemplate,
   MWidget,
   MSchedule,
+  MView,
 
   MSns,
   MUser,
