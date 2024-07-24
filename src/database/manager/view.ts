@@ -10,15 +10,16 @@ class View extends Base<IView> {
       name: { type: String },
       type: { type: String },
       order: { type: Number },
-      widgets: {
-        type: [{
-          _id: false,
-          id: String,
-          field: String,
-          value: mongoose.Schema.Types.Mixed,
-          optionValue: mongoose.Schema.Types.Mixed
-        }]
-      },
+      widgets: [{
+        _id: false,
+        widget: String,
+        field: String,
+        label: String,
+        source: String,
+        refer: mongoose.Schema.Types.Mixed,
+        value: mongoose.Schema.Types.Mixed,
+        explain: String,
+      }],
       createdAt: { type: Date },
       updatedAt: { type: Date },
     }, {

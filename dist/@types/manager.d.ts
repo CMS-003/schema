@@ -108,11 +108,14 @@ export interface IView {
     type: string;
     table: string;
     order: number;
+    createdAt: Date;
+    updatedAt: Date;
     widgets: {
-        _id: false;
-        id: string;
+        widget: string;
         field: string;
+        source: 'url' | 'var';
+        refer?: any;
         value: any;
-        optionValue?: any;
-    };
+        explain: string;
+    }[];
 }

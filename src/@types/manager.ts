@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 
 export interface IComponentType {
   _id: string;
@@ -109,5 +109,20 @@ export interface IView {
   type: string;
   table: string;
   order: number;
-  widgets: { _id: false; id: string; field: string; value: any; optionValue?: any; }
+  createdAt: Date;
+  updatedAt: Date;
+  widgets: {
+    // 控件类型
+    widget: string;
+    // 绑定字段
+    field: string;
+    // 数据来源
+    source: 'url' | 'var';
+    // 参考数据
+    refer?: any;
+    // 当前值
+    value: any;
+    // 说明
+    explain: string;
+  }[]
 }
