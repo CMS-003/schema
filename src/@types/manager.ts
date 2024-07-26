@@ -124,5 +124,7 @@ export interface IView {
     value: any;
     // 说明
     explain: string;
+    // 模板
+    template: string;
   }[]
 }

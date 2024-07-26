@@ -17,6 +17,7 @@ class View extends Base {
                     refer: mongoose.Schema.Types.Mixed,
                     value: mongoose.Schema.Types.Mixed,
                     explain: String,
+                    template: String,
                 }],
             createdAt: { type: Date },
             updatedAt: { type: Date },

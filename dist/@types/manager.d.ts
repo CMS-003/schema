@@ -117,5 +117,6 @@ export interface IView {
         refer?: any;
         value: any;
         explain: string;
+        template: string;
     }[];
 }
