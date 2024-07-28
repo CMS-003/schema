@@ -102,6 +102,15 @@ export interface ISchedule {
     status: number;
     createdAt: Date;
 }
+export interface IInterface {
+    _id: string;
+    name: string;
+    desc: string;
+    script: string;
+    status: number;
+    createdAt: Date;
+    updatedAt: Date;
+}
 export interface IView {
     _id: string;
     name: string;
