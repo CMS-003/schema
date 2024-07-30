@@ -9,6 +9,9 @@ class Schedule extends Base<ISchedule> {
       _id: {
         type: String,
       },
+      cron: {
+        type: String,
+      },
       name: {
         type: String,
       },

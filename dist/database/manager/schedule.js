@@ -7,6 +7,9 @@ class Schedule extends Base {
             _id: {
                 type: String,
             },
+            cron: {
+                type: String,
+            },
             name: {
                 type: String,
             },

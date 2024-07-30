@@ -96,6 +96,7 @@ export interface IWidget {
 }
 export interface ISchedule {
   _id: string;
+  cron: string;
   name: string;
   desc: string;
   script: string;
@@ -136,5 +137,9 @@ export interface IView {
     explain: string;
     // 模板
     template: string;
+    // 样式
+    style: object | null;
+    // 点击事件
+    onclick: string;
   }[]
 }

@@ -96,6 +96,7 @@ export interface IWidget {
 }
 export interface ISchedule {
     _id: string;
+    cron: string;
     name: string;
     desc: string;
     script: string;
