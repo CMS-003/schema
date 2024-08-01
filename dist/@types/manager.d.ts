@@ -112,6 +112,17 @@ export interface IInterface {
     createdAt: Date;
     updatedAt: Date;
 }
+interface IViewWidget {
+    widget: string;
+    field: string;
+    source: 'url' | 'var';
+    refer?: any;
+    value: any;
+    explain: string;
+    template: string;
+    style: object | null;
+    onclick: string;
+}
 export interface IView {
     _id: string;
     name: string;
@@ -120,13 +131,8 @@ export interface IView {
     order: number;
     createdAt: Date;
     updatedAt: Date;
-    widgets: {
-        widget: string;
-        field: string;
-        source: 'url' | 'var';
-        refer?: any;
-        value: any;
-        explain: string;
-        template: string;
+    widgets: IViewWidget & {
+        children?: IViewWidget[];
     }[];
 }
+export {};

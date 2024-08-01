@@ -114,6 +114,26 @@ export interface IInterface {
   updatedAt: Date;
 }
 
+interface IViewWidget {
+  // 控件类型
+  widget: string;
+  // 绑定字段
+  field: string;
+  // 数据来源
+  source: 'url' | 'var';
+  // 参考数据
+  refer?: any;
+  // 当前值
+  value: any;
+  // 说明
+  explain: string;
+  // 模板
+  template: string;
+  // 样式
+  style: object | null;
+  // 点击事件
+  onclick: string;
+}
 export interface IView {
   _id: string;
   name: string;
@@ -122,24 +142,8 @@ export interface IView {
   order: number;
   createdAt: Date;
   updatedAt: Date;
-  widgets: {
-    // 控件类型
-    widget: string;
-    // 绑定字段
-    field: string;
-    // 数据来源
-    source: 'url' | 'var';
-    // 参考数据
-    refer?: any;
-    // 当前值
-    value: any;
-    // 说明
-    explain: string;
-    // 模板
-    template: string;
-    // 样式
-    style: object | null;
-    // 点击事件
-    onclick: string;
+  widgets: IViewWidget & {
+    // 嵌套
+    children?: IViewWidget[];
   }[]
 }

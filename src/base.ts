@@ -190,11 +190,11 @@ class Base<T> {
     const opt = this._init(opts);
     return this.model.find(opt.where).select(opt.attrs).sort(opt.sort).lean(opt.lean);
   }
-  count(opts = {}): Promise<Number> {
+  count(opts = {}): Promise<number> {
     const opt = this._init(opts);
     return this.model.countDocuments(opt.where);
   }
-  async sum(opts = {}): Promise<Number> {
+  async sum(opts = {}): Promise<number> {
     const opt = this._init(opts);
     const sum = await this.model.aggregate([
       { $match: opt.where },
