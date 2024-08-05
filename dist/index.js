@@ -1,5 +1,5 @@
-import MConnection from "./database/schema/connection";
-import MJsonSchema from "./database/schema/JsonSchema";
+import MConnection from "./database/schema/connection.js";
+import MJsonSchema from "./database/schema/JsonSchema.js";
 import MComponent from "./database/manager/component.js";
 import MComponentType from "./database/manager/component_type.js";
 import MConfig from "./database/manager/config.js";
