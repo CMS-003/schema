@@ -1,3 +1,5 @@
+import MConnection from "./database/schema/connection";
+import MJsonSchema from "./database/schema/JsonSchema";
 import MComponent from "./database/manager/component.js";
 import MComponentType from "./database/manager/component_type.js";
 import MConfig from "./database/manager/config.js";
@@ -28,4 +30,4 @@ import MAccount from "./database/security/account.js";
 import MPass from "./database/security/pass.js";
 import MTask from './database/crawler/task.js';
 import MSpider from "./database/crawler/spider.js";
-export { MComponent, MComponentType, MConfig, MLog, MProject, MTemplate, MWidget, MSchedule, MView, MInterface, MSns, MUser, MFeedback, MVerification, MStar, MCounter, MResource, MChapter, MMediaGallery, MMediaImage, MMediaLyrics, MMediaPixiv, MMediaSubtitle, MMediaVideo, MVersion, MAccount, MPass, MCapsule, MTask, MSpider, };
+export { MConnection, MJsonSchema, MComponent, MComponentType, MConfig, MLog, MProject, MTemplate, MWidget, MSchedule, MView, MInterface, MSns, MUser, MFeedback, MVerification, MStar, MCounter, MResource, MChapter, MMediaGallery, MMediaImage, MMediaLyrics, MMediaPixiv, MMediaSubtitle, MMediaVideo, MVersion, MAccount, MPass, MCapsule, MTask, MSpider, };
