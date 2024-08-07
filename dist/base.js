@@ -1,57 +1,6 @@
 import _ from 'lodash';
-import { Schema } from 'mongoose';
-function getJsonSchema(schema) {
-    const json = {
-        type: 'object',
-        properties: {},
-    };
-    const required = [];
-    schema.eachPath((path, xchma) => {
-        if (path === '_id') {
-            return;
-        }
-        const type = xchma.options.type instanceof Schema ? 'object' : (typeof xchma.options.type === 'function' ? xchma.options.type.name.toLowerCase() : (_.isArray(xchma.options.type) ? 'array' : xchma.options.type));
-        const o = {};
-        o.type = type;
-        if (_.get(xchma, 'options.required')) {
-            required.push(path);
-        }
-        if (type === 'object' && xchma.schema) {
-            json.properties[path] = getJsonSchema(xchma.schema);
-        }
-        if (!_.isNil(xchma.options.comment)) {
-            o.comment = xchma.options.comment;
-        }
-        if (!_.isNil(xchma.options.enum)) {
-            o.enum = xchma.options.enum;
-        }
-        if (!_.isFunction(xchma.options.default)) {
-            o.default = xchma.options.default;
-        }
-        if (type === 'date') {
-            o.type = 'string';
-            o.format = 'date-time';
-        }
-        if (xchma.options.type.name === 'SchemaMixed') {
-            delete o.type;
-            o.oneOf = [
-                { type: 'string' },
-                { type: 'number' },
-                { type: 'boolean' },
-                { type: 'object' },
-            ];
-        }
-        if (type === 'array') {
-            o.items = xchma.schema ? getJsonSchema(xchma.schema) : xchma.options.type.map((t) => t.type ? t.type.name : t.name).map((t) => ({ type: t.toLowerCase() }));
-        }
-        json.properties[path] = o;
-    });
-    if (required.length !== 0) {
-        json.required = required;
-    }
-    return json;
-}
-class Base {
+import mongoose, { Schema } from 'mongoose';
+export class Base {
     static models = {};
     model;
     data;
@@ -188,5 +137,86 @@ class Base {
         const json = getJsonSchema(this.model.schema);
         return json;
     }
+}
+export function getJsonSchema(schema) {
+    const json = {
+        type: 'Object',
+        properties: {},
+    };
+    const required = [];
+    schema.eachPath((path, xchma) => {
+        if (path.endsWith('.$*')) {
+            return;
+        }
+        // if (path === '_id') {
+        //   console.log(path, xchma)
+        // }
+        const type = xchma.options.type instanceof Schema ? 'Object' : (typeof xchma.options.type === 'function' ? xchma.options.type.name : (_.isArray(xchma.options.type) ? 'Array' : xchma.options.type));
+        const o = {};
+        o.type = _.upperFirst(type);
+        if (_.get(xchma, 'options.required')) {
+            required.push(path);
+        }
+        if (type === 'Object' && xchma.schema) {
+            json.properties[path] = getJsonSchema(xchma.schema);
+        }
+        if (!_.isNil(xchma.options.comment)) {
+            o.comment = xchma.options.comment;
+        }
+        if (!_.isNil(xchma.options.enum)) {
+            o.enum = xchma.options.enum;
+        }
+        if (!_.isFunction(xchma.options.default) && !_.isUndefined(xchma.options.default)) {
+            o.default = xchma.options.default;
+        }
+        if (type === 'Date') {
+            o.type = 'Date';
+        }
+        if (xchma.options.type.name === 'SchemaMixed') {
+            o.type = 'Mixed';
+        }
+        if (type === 'Array') {
+            o.items = xchma.schema ? [getJsonSchema(xchma.schema)] : xchma.options.type.map((t) => t.type ? t.type.name : t.name).map((t) => ({ type: _.upperFirst(t) }));
+        }
+        if (path.includes('.')) {
+            const [opath, oattr] = path.split('.');
+            if (!json.properties[opath]) {
+                json.properties[opath] = { type: 'Object', properties: {} };
+            }
+            json.properties[opath].properties[oattr] = o;
+        }
+        else {
+            json.properties[path] = o;
+        }
+    });
+    if (required.length !== 0) {
+        json.required = required;
+    }
+    return json;
+}
+const types = mongoose.Schema.Types;
+const baseTypes = ['String', 'Boolean', 'Buffer', 'Date', 'Map', 'Mixed', 'Decimal128', 'ObjectId', 'UUID', 'Number'];
+// 非正规的都要求改为 { type: xxx }
+function json2schema(json) {
+    const schema = {};
+    if (json.type === 'Array') {
+        return json.items.map(item => item.type === 'Object' ? json2schema(item) : types[item.type]);
+    }
+    else if (json.type === 'Object') {
+        if (_.isEmpty(json.properties)) {
+            return { type: types.Mixed };
+        }
+        for (let k in json.properties) {
+            schema[k] = json2schema(json.properties[k]);
+        }
+    }
+    else if (baseTypes.includes(json.type)) {
+        return { type: types[json.type] };
+    }
+    return schema;
+}
+export function getMongoSchema(json, option = {}) {
+    const schema = json2schema(json);
+    return new Schema(schema, option);
 }
 export default Base;

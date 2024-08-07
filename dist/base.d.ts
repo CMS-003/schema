@@ -1,4 +1,4 @@
-import { Model, UpdateQuery, UpdateWithAggregationPipeline } from 'mongoose';
+import mongoose, { Model, UpdateQuery, UpdateWithAggregationPipeline, Schema } from 'mongoose';
 type IJsonSchema = {
     type?: string;
     format?: string;
@@ -41,7 +41,7 @@ export interface CustomParams<T> {
         [key: string]: (this: Model<T>) => any;
     };
 }
-declare class Base<T> {
+export declare class Base<T> {
     static models: {
         [key: string]: Model<any>;
     };
@@ -49,10 +49,10 @@ declare class Base<T> {
     data: null | Partial<T>;
     constructor();
     _init(opts: OPT<T> | OPT): OPT<T>;
-    aggregate(query: any): import("mongoose").Aggregate<any[]>;
-    getModel(): Model<T, {}, {}, {}, import("mongoose").IfAny<T, any, import("mongoose").Document<unknown, {}, T> & import("mongoose").Require_id<T>>, any>;
-    create(data: Partial<T>): Promise<import("mongoose").IfAny<T, any, import("mongoose").Document<unknown, {}, T> & import("mongoose").Require_id<T>>>;
-    destroy(opts: OPT): import("mongoose").Query<import("mongodb").DeleteResult, import("mongoose").IfAny<T, any, import("mongoose").Document<unknown, {}, T> & import("mongoose").Require_id<T>>, {}, T, "deleteMany", {}>;
+    aggregate(query: any): mongoose.Aggregate<any[]>;
+    getModel(): mongoose.Model<T, {}, {}, {}, mongoose.IfAny<T, any, mongoose.Document<unknown, {}, T> & mongoose.Require_id<T>>, any>;
+    create(data: Partial<T>): Promise<mongoose.IfAny<T, any, mongoose.Document<unknown, {}, T> & mongoose.Require_id<T>>>;
+    destroy(opts: OPT): mongoose.Query<mongoose.mongo.DeleteResult, mongoose.IfAny<T, any, mongoose.Document<unknown, {}, T> & mongoose.Require_id<T>>, {}, T, "deleteMany", {}>;
     update(opts?: OPT<T>): Promise<T & {
         [key: string]: Function;
     }>;
@@ -69,4 +69,21 @@ declare class Base<T> {
     }[];
     getJsonSchema(): IJsonSchema;
 }
+export declare function getJsonSchema(schema: Schema): IJsonSchema;
+type IJson = {
+    type?: 'Object' | 'Array' | 'BigInt' | 'Buffer' | 'Date' | 'Decimal128' | 'Map' | 'Mixed' | 'Number' | 'ObjectId' | 'String' | 'UUID';
+    enum?: any;
+    comment?: string;
+    default?: any;
+    properties?: {
+        [key: string]: IJson;
+    };
+    items?: IJson[];
+    required?: string[];
+};
+export declare function getMongoSchema(json: IJson, option?: mongoose.SchemaOptions): mongoose.Schema<any, mongoose.Model<any, any, any, any, any, any>, {}, {}, {}, {}, mongoose.SchemaOptions<unknown, {}, {}, {}, {}, mongoose.Document<unknown, {}, unknown> & Required<{
+    _id: unknown;
+}>>, any, mongoose.Document<unknown, {}, unknown> & Required<{
+    _id: unknown;
+}>>;
 export default Base;

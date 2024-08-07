@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { Model, UpdateQuery, UpdateWithAggregationPipeline, Schema } from 'mongoose';
+import mongoose, { Model, UpdateQuery, UpdateWithAggregationPipeline, Schema } from 'mongoose';
 
 type IJsonSchema = {
   type?: string;
@@ -12,58 +12,6 @@ type IJsonSchema = {
   items?: IJsonSchema[];
   required?: string[];
   oneOf?: { type: string }[];
-}
-
-function getJsonSchema(schema: Schema): IJsonSchema {
-  const json: IJsonSchema = {
-    type: 'object',
-    properties: {},
-  };
-  const required: string[] = [];
-  schema.eachPath((path, xchma) => {
-    if (path === '_id') {
-      return;
-    }
-    const type = xchma.options.type instanceof Schema ? 'object' : (typeof xchma.options.type === 'function' ? xchma.options.type.name.toLowerCase() : (_.isArray(xchma.options.type) ? 'array' : xchma.options.type));
-    const o: any = {};
-    o.type = type;
-    if (_.get(xchma, 'options.required')) {
-      required.push(path);
-    }
-    if (type === 'object' && xchma.schema) {
-      json.properties[path] = getJsonSchema(xchma.schema);
-    }
-    if (!_.isNil(xchma.options.comment)) {
-      o.comment = xchma.options.comment;
-    }
-    if (!_.isNil(xchma.options.enum)) {
-      o.enum = xchma.options.enum;
-    }
-    if (!_.isFunction(xchma.options.default)) {
-      o.default = xchma.options.default;
-    }
-    if (type === 'date') {
-      o.type = 'string';
-      o.format = 'date-time';
-    }
-    if (xchma.options.type.name === 'SchemaMixed') {
-      delete o.type;
-      o.oneOf = [
-        { type: 'string' },
-        { type: 'number' },
-        { type: 'boolean' },
-        { type: 'object' },
-      ]
-    }
-    if (type === 'array') {
-      o.items = xchma.schema ? getJsonSchema(xchma.schema) : xchma.options.type.map((t: any) => t.type ? t.type.name : t.name).map((t: any) => ({ type: t.toLowerCase() }));
-    }
-    json.properties[path] = o;
-  });
-  if (required.length !== 0) {
-    json.required = required;
-  }
-  return json;
 }
 
 export interface OPT<T = void> {
@@ -84,7 +32,7 @@ export interface CustomParams<T> {
   };
   statics?: { [key: string]: (this: Model<T>) => any },
 }
-class Base<T> {
+export class Base<T> {
   static models: { [key: string]: Model<any> } = {};
   model: null | Model<T>;
   data: null | Partial<T>;
@@ -228,4 +176,96 @@ class Base<T> {
   }
 }
 
+export function getJsonSchema(schema: Schema): IJsonSchema {
+  const json: IJsonSchema = {
+    type: 'Object',
+    properties: {},
+  };
+  const required: string[] = [];
+  schema.eachPath((path, xchma) => {
+    if (path.endsWith('.$*')) {
+      return;
+    }
+    // if (path === '_id') {
+    //   console.log(path, xchma)
+    // }
+    const type = xchma.options.type instanceof Schema ? 'Object' : (typeof xchma.options.type === 'function' ? xchma.options.type.name : (_.isArray(xchma.options.type) ? 'Array' : xchma.options.type));
+    const o: any = {};
+    o.type = _.upperFirst(type);
+    if (_.get(xchma, 'options.required')) {
+      required.push(path);
+    }
+    if (type === 'Object' && xchma.schema) {
+      json.properties[path] = getJsonSchema(xchma.schema);
+    }
+    if (!_.isNil(xchma.options.comment)) {
+      o.comment = xchma.options.comment;
+    }
+    if (!_.isNil(xchma.options.enum)) {
+      o.enum = xchma.options.enum;
+    }
+    if (!_.isFunction(xchma.options.default) && !_.isUndefined(xchma.options.default)) {
+      o.default = xchma.options.default;
+    }
+    if (type === 'Date') {
+      o.type = 'Date';
+    }
+    if (xchma.options.type.name === 'SchemaMixed') {
+      o.type = 'Mixed';
+    }
+    if (type === 'Array') {
+      o.items = xchma.schema ? [getJsonSchema(xchma.schema)] : xchma.options.type.map((t: any) => t.type ? t.type.name : t.name).map((t: string) => ({ type: _.upperFirst(t) }));
+    }
+    if (path.includes('.')) {
+      const [opath, oattr] = path.split('.');
+      if (!json.properties[opath]) {
+        json.properties[opath] = { type: 'Object', properties: {} };
+      }
+      json.properties[opath].properties[oattr] = o;
+    } else {
+      json.properties[path] = o;
+    }
+  });
+  if (required.length !== 0) {
+    json.required = required;
+  }
+  return json;
+}
+
+type IJson = {
+  // DocumentArray Subdocument
+  type?: 'Object' | 'Array' | 'BigInt' | 'Buffer' | 'Date' | 'Decimal128' | 'Map' | 'Mixed' | 'Number' | 'ObjectId' | 'String' | 'UUID',
+  enum?: any;
+  comment?: string;
+  default?: any;
+  properties?: { [key: string]: IJson },
+  items?: IJson[],
+  required?: string[],
+}
+
+const types = mongoose.Schema.Types;
+const baseTypes = ['String', 'Boolean', 'Buffer', 'Date', 'Map', 'Mixed', 'Decimal128', 'ObjectId', 'UUID', 'Number'];
+
+// 非正规的都要求改为 { type: xxx }
+function json2schema(json: IJson): any {
+  const schema: any = {};
+  if (json.type === 'Array') {
+    return json.items.map(item => item.type === 'Object' ? json2schema(item) : types[item.type])
+  } else if (json.type === 'Object') {
+    if (_.isEmpty(json.properties)) {
+      return { type: types.Mixed };
+    }
+    for (let k in json.properties) {
+      schema[k] = json2schema(json.properties[k]);
+    }
+  } else if (baseTypes.includes(json.type)) {
+    return { type: types[json.type] };
+  }
+  return schema;
+}
+
+export function getMongoSchema(json: IJson, option: mongoose.SchemaOptions = {}) {
+  const schema = json2schema(json);
+  return new Schema(schema, option);
+}
 export default Base;
