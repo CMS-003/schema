@@ -162,7 +162,6 @@ export class Base<T> {
     const fields = this.model.schema.paths;
     const result = [];
     for (const field in fields) {
-      console.log(`字段: ${field}, 类型: ${fields[field].instance}`);
       result.push({
         field,
         type: fields[field].instance

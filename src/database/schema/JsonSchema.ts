@@ -8,6 +8,8 @@ class JsonSchema extends Base<IJsonSchema> {
     const schema = new mongoose.Schema({
       _id: { type: String },
       name: { type: String },
+      title: { type: String },
+      visible: { type: Number, default: 1 },
       db: { type: String },
       status: { type: Number },
       schema: { type: Object },
