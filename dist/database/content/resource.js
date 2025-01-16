@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { v7 } from "uuid";
 import Base from '../../base.js';
-import constant from "#constant.js";
+import constant from "../../constant.js";
 class Resource extends Base {
     constructor(db, params = {}) {
         super();

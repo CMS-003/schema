@@ -3,7 +3,6 @@ import mongoose, { Schema } from 'mongoose';
 export class Base {
     static models = {};
     model;
-    data;
     constructor() {
         this.model = null;
     }

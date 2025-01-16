@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { v7 } from "uuid";
 import Base, { CustomParams } from '../../base.js';
 import { IResource } from '../../@types/content.js'
-import constant from "#constant.js";
+import constant from "../../constant.js";
 
 class Resource extends Base<IResource> {
   constructor(db: mongoose.Connection, params: CustomParams<IResource> = {}) {

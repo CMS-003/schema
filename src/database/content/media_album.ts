@@ -2,7 +2,7 @@
 import mongoose from "mongoose";
 import Base, { CustomParams } from '../../base.js';
 import { IMediaALBUM } from '../../@types/content.js'
-import constant from "#constant.js";
+import constant from "../../constant.js";
 
 class MediaALBUM extends Base<IMediaALBUM> {
   constructor(db: mongoose.Connection, params: CustomParams<IMediaALBUM> = {}) {

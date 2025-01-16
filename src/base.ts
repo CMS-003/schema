@@ -35,7 +35,6 @@ export interface CustomParams<T> {
 export class Base<T> {
   static models: { [key: string]: Model<any> } = {};
   model: null | Model<T>;
-  data: null | Partial<T>;
 
   constructor() {
     this.model = null;

@@ -46,7 +46,6 @@ export declare class Base<T> {
         [key: string]: Model<any>;
     };
     model: null | Model<T>;
-    data: null | Partial<T>;
     constructor();
     _init(opts: OPT<T> | OPT): OPT<T>;
     aggregate(query: any): mongoose.Aggregate<any[]>;

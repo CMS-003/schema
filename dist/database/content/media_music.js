@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import Base from '../../base.js';
-import constant from "#constant.js";
+import constant from "../../constant.js";
 class MediaMusic extends Base {
     constructor(db, params = {}) {
         super();
