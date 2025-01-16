@@ -1,36 +1,37 @@
+
 import mongoose from "mongoose";
 import Base, { CustomParams } from '../../base.js';
-import { IMediaImage } from '../../@types/content.js'
+import { IMediaALBUM } from '../../@types/content.js'
 import constant from "#constant.js";
 
-class MediaImage extends Base<IMediaImage> {
-  constructor(db: mongoose.Connection, params: CustomParams<IMediaImage> = {}) {
+class MediaALBUM extends Base<IMediaALBUM> {
+  constructor(db: mongoose.Connection, params: CustomParams<IMediaALBUM> = {}) {
     super();
     const schema = new mongoose.Schema({
       _id: { type: String },
-      uid: { type: String },
+      uid: { type: String, },
       mid: { type: String, },
       mtype: { type: String, },
-      type: { type: Number, default: constant.TYPE.IMAGE.ALBUM },
+      type: { type: Number, default: constant.TYPE.IMAGE },
       title: { type: String },
       path: { type: String },
       url: { type: String },
       nth: { type: Number, default: 1 },
-      status: { type: Number },
+      status: { type: Number, default: constant.STATUS.INITIAL },
       createdAt: { type: Date },
       updatedAt: { type: Date },
-      more: { type: Object, },
+      more: { type: Object, default: {} },
     }, {
       strict: false,
       versionKey: false,
       excludeIndexes: true,
-      collection: 'MediaImage',
+      collection: 'MediaALBUM',
       statics: params.statics || {},
       methods: params.methods || {},
     });
-    this.model = db.model<IMediaImage>('MediaImage', schema);
-    Base.models.MediaImage = this.model;
+    this.model = db.model<IMediaALBUM>('MediaALBUM', schema);
+    Base.models.MediaALBUM = this.model;
   }
 }
 
-export default MediaImage;
+export default MediaALBUM;

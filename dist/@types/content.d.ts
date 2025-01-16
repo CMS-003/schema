@@ -10,6 +10,7 @@ export interface ICounter {
 }
 export interface IResource {
     _id: string;
+    uid: string;
     title: string;
     desc: string;
     thumbnail: string;
@@ -17,47 +18,42 @@ export interface IResource {
     alias: string[];
     content: string;
     tags: string[];
-    uid: string;
     uname: string;
     status: number;
     original: object;
     origin: string;
     country: string;
+    actors: {
+        _id: string;
+        name: string;
+    }[];
     lang: string;
     cspn: string;
     spider_id: string;
     source_id: string;
     types: string[];
     publishedAt: Date;
+    archivedAt?: Date;
     createdAt: Date;
     updatedAt: Date;
 }
-export interface IChapter {
-    _id: string;
-    resource_id: string;
-    resource_type: string;
-    type: string;
-    name: string;
-    desc: string;
-    order: number;
-    createAt: Date;
-    updatedAt: Date;
-    extra?: object;
-}
 export interface BaseMedia {
     _id: string;
-    resource_id: string;
+    uid: string;
+    mid: string;
+    mtype: string;
     title: string;
     path: string;
     url: string;
-    type: string;
+    type: number;
     more: object;
     lang?: string;
     nth: number;
     status: number;
     createdAt: Date;
+    updatedAt: Date;
 }
-export interface IMediaGallery extends BaseMedia {
+export interface IMediaALBUM extends BaseMedia {
 }
 export interface IMediaVideo extends BaseMedia {
 }
@@ -65,9 +61,13 @@ export interface IMediaImage extends BaseMedia {
 }
 export interface IMediaPixiv extends BaseMedia {
 }
-export interface IMediaSubtitle extends BaseMedia {
+export interface IMediaChapter extends BaseMedia {
 }
-export interface IMediaLyrics extends BaseMedia {
+export interface IMediaSegment extends BaseMedia {
+}
+export interface IMediaCaption extends BaseMedia {
+}
+export interface IMediaMusic extends BaseMedia {
 }
 export interface IVersion {
     _id: string;

@@ -6,23 +6,20 @@ class MediaVideo extends Base<IMediaVideo> {
   constructor(db: mongoose.Connection, params: CustomParams<IMediaVideo> = {}) {
     super();
     const schema = new mongoose.Schema({
-      _id: {
-        type: String
-      },
-      resource_id: {
-        type: String,
-      },
-      type: { type: String },
+      _id: { type: String },
+      uid: { type: String },
+      mid: { type: String },
+      mtype: { type: String },
+      type: { type: Number },
       title: { type: String },
       path: { type: String },
       url: { type: String },
-      nth: { type: Number },
+      cover: { type: String },
+      nth: { type: Number, default: 1 },
       status: { type: Number },
       createdAt: { type: Date },
       updatedAt: { type: Date },
-      more: {
-        type: Object,
-      },
+      more: { type: Object, default: {} },
     }, {
       strict: false,
       versionKey: false,

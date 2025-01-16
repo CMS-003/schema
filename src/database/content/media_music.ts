@@ -1,17 +1,16 @@
 import mongoose from "mongoose";
 import Base, { CustomParams } from '../../base.js';
-import { IMediaPixiv } from '../../@types/content.js'
+import { IMediaMusic } from '../../@types/content.js'
 import constant from "#constant.js";
 
-class MediaPixiv extends Base<IMediaPixiv> {
-  constructor(db: mongoose.Connection, params: CustomParams<IMediaPixiv> = {}) {
+class MediaMusic extends Base<IMediaMusic> {
+  constructor(db: mongoose.Connection, params: CustomParams<IMediaMusic> = {}) {
     super();
     const schema = new mongoose.Schema({
       _id: { type: String },
       uid: { type: String },
-      mid: { type: String },
-      mtype: { type: String },
-      type: { type: Number, default: constant.TYPE.IMAGE.ALBUM },
+      mid: { type: String, },
+      type: { type: Number, default: constant.TYPE.MUSIC.AUDIO },
       title: { type: String },
       path: { type: String },
       url: { type: String },
@@ -19,20 +18,19 @@ class MediaPixiv extends Base<IMediaPixiv> {
       status: { type: Number },
       createdAt: { type: Date },
       updatedAt: { type: Date },
-      more: {
-        type: Object,
-      },
+      more: { type: Object, },
     }, {
+      id: true,
       strict: false,
       versionKey: false,
       excludeIndexes: true,
-      collection: 'MediaPixiv',
+      collection: 'MediaMusic',
       statics: params.statics || {},
       methods: params.methods || {},
     });
-    this.model = db.model<IMediaPixiv>('MediaPixiv', schema);
-    Base.models.MediaPixiv = this.model;
+    this.model = db.model<IMediaMusic>('MediaMusic', schema);
+    Base.models.MediaMusic = this.model;
   }
 }
 
-export default MediaPixiv;
+export default MediaMusic;
