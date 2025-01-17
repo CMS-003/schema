@@ -3,6 +3,7 @@ export interface IJsonSchema {
     name: string;
     title: string;
     db: string;
+    table: string;
     visible: number;
     status: number;
     schema: object;

@@ -11,6 +11,7 @@ class JsonSchema extends Base<IJsonSchema> {
       title: { type: String },
       visible: { type: Number, default: 1 },
       db: { type: String },
+      table: { type: String },
       status: { type: Number },
       schema: { type: Object },
       createdAt: { type: Date },
