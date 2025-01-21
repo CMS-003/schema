@@ -207,6 +207,9 @@ function json2schema(json) {
         for (let k in json.properties) {
             schema[k] = json2schema(json.properties[k]);
         }
+        if (!json.properties._id) {
+            schema._id = false;
+        }
     }
     else if (baseTypes.includes(json.type)) {
         return { type: types[json.type] };
