@@ -202,10 +202,17 @@ function json2schema(json) {
     }
     else if (json.type === 'Object') {
         if (_.isEmpty(json.properties)) {
-            return { type: types.Mixed };
+            const subSchema = { type: types.Mixed };
+            if (!_.isUndefined(json.default)) {
+                subSchema.default = json.default;
+            }
+            return subSchema;
         }
         for (let k in json.properties) {
             schema[k] = json2schema(json.properties[k]);
+            if (!_.isUndefined(json.properties[k].default)) {
+                schema[k].default = json.properties[k].default;
+            }
         }
         if (!json.properties._id) {
             schema._id = false;
