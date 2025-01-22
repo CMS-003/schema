@@ -1,12 +1,13 @@
 import mongoose, { Model, UpdateQuery, UpdateWithAggregationPipeline, Schema } from 'mongoose';
 type IJsonSchema = {
     type?: string;
+    const?: any;
     format?: string;
     descrition?: string;
     enum?: any;
     comment?: string;
     default?: any;
-    properties: {
+    properties?: {
         [key: string]: IJsonSchema;
     };
     items?: IJsonSchema[];
@@ -70,7 +71,8 @@ export declare class Base<T> {
 }
 export declare function getJsonSchema(schema: Schema): IJsonSchema;
 type IJson = {
-    type?: 'Object' | 'Array' | 'BigInt' | 'Buffer' | 'Date' | 'Decimal128' | 'Map' | 'Mixed' | 'Number' | 'ObjectId' | 'String' | 'UUID';
+    type?: 'Object' | 'Array' | 'Buffer' | 'Date' | 'Decimal128' | 'Map' | 'Number' | 'String' | 'ObjectId' | 'Boolean';
+    const?: any;
     enum?: any;
     comment?: string;
     default?: any;

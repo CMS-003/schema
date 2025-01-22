@@ -1,28 +1,83 @@
 import mongoose from "mongoose";
 import { getMongoSchema, getJsonSchema } from "../dist/base.js";
 
-const schema = new mongoose.Schema({
-  _id: { type: String },
-  project_id: { type: String },
-  status: { type: Number },
-  accepts: { type: [String] },
-  order: { type: Number },
-  resources: { type: [{ _id: false, resource_id: String, resource_type: String }] },
-  attrs: { type: Object },
-  updatedAt: { type: Date },
-  roles: [{ _id: false, name: String, peoples: [{ _id: false, name: String, avatar: String }] }],
-  user: {
-    id: String,
-    name: String,
-  },
-  counter: Map
-});
-
-const json = getJsonSchema(schema);
-console.log(JSON.stringify(json));
+const json = {
+  "type": "Object",
+  "properties": {
+    "_id": {
+      "type": "String",
+      "comment": "资源ID"
+    },
+    "title": {
+      "type": "String"
+    },
+    "status": {
+      "type": "Number",
+      "default": 1
+    },
+    "publishedAt": {
+      "type": "Date"
+    },
+    "original": {
+      "type": "Object",
+      "default": {}
+    },
+    "counter": {
+      "type": "Map",
+      "default": {}
+    },
+    "origin": {
+      "type": "String",
+      "default": ""
+    },
+    "country": {
+      "type": "String",
+      "default": "CN"
+    },
+    "user": {
+      "type": "Object",
+      "properties": {
+        "_id": {
+          "type": "String",
+          "default": ""
+        },
+        "name": {
+          "type": "String",
+          "default": ""
+        }
+      }
+    },
+    "resource": {
+      "type": "Array",
+      "items": [
+        {
+          "type": "Object",
+          "properties": {
+            "rid": {
+              "type": "String",
+              "default": ""
+            },
+            "rtype": {
+              "type": "String",
+              "default": ""
+            }
+          }
+        }
+      ]
+    },
+    "source_id": {
+      "type": "String",
+      "default": ""
+    },
+    "updatedAt": {
+      "type": "Date"
+    }
+  }
+}
 
 const new_schema = getMongoSchema(json)
 new_schema.eachPath((path, option) => {
   console.log(path, option.instance)
 })
-// console.log(new_schema);
+console.log(new_schema.obj);
+console.log(new_schema.obj.resource);

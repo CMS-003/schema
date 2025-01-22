@@ -142,13 +142,14 @@ export function getJsonSchema(schema) {
         properties: {},
     };
     const required = [];
+    // 禁用_id 会遍历不到
+    if (schema.obj._id === false) {
+        json.properties._id = { type: 'Boolean', const: false };
+    }
     schema.eachPath((path, xchma) => {
         if (path.endsWith('.$*')) {
             return;
         }
-        // if (path === '_id') {
-        //   console.log(path, xchma)
-        // }
         const type = xchma.options.type instanceof Schema ? 'Object' : (typeof xchma.options.type === 'function' ? xchma.options.type.name : (_.isArray(xchma.options.type) ? 'Array' : xchma.options.type));
         const o = {};
         o.type = _.upperFirst(type);
@@ -156,7 +157,12 @@ export function getJsonSchema(schema) {
             required.push(path);
         }
         if (type === 'Object' && xchma.schema) {
-            json.properties[path] = getJsonSchema(xchma.schema);
+            if (xchma.schema) {
+                json.properties[path] = getJsonSchema(xchma.schema);
+            }
+            else if (xchma.options.type.name === 'Object') {
+                o.type = 'Object';
+            }
         }
         if (!_.isNil(xchma.options.comment)) {
             o.comment = xchma.options.comment;
@@ -169,9 +175,6 @@ export function getJsonSchema(schema) {
         }
         if (type === 'Date') {
             o.type = 'Date';
-        }
-        if (xchma.options.type.name === 'SchemaMixed') {
-            o.type = 'Mixed';
         }
         if (type === 'Array') {
             o.items = xchma.schema ? [getJsonSchema(xchma.schema)] : xchma.options.type.map((t) => t.type ? t.type.name : t.name).map((t) => ({ type: _.upperFirst(t) }));
@@ -193,16 +196,16 @@ export function getJsonSchema(schema) {
     return json;
 }
 const types = mongoose.Schema.Types;
-const baseTypes = ['String', 'Boolean', 'Buffer', 'Date', 'Map', 'Mixed', 'Decimal128', 'ObjectId', 'UUID', 'Number'];
+const baseTypes = ['String', 'Boolean', 'Buffer', 'Date', 'Map', 'Decimal128', 'ObjectId', 'Number'];
 // 非正规的都要求改为 { type: xxx }
-function json2schema(json) {
+function json2schema(json, isSubSchema = false) {
     const schema = {};
     if (json.type === 'Array') {
-        return json.items.map(item => item.type === 'Object' ? json2schema(item) : types[item.type]);
+        return json.items.map(item => item.type === 'Object' ? json2schema(item, true) : types[item.type]);
     }
     else if (json.type === 'Object') {
         if (_.isEmpty(json.properties)) {
-            const subSchema = { type: types.Mixed };
+            const subSchema = { type: 'Object' };
             if (!_.isUndefined(json.default)) {
                 subSchema.default = json.default;
             }
@@ -210,18 +213,15 @@ function json2schema(json) {
         }
         for (let k in json.properties) {
             schema[k] = json2schema(json.properties[k]);
-            if (!_.isUndefined(json.properties[k].default)) {
-                schema[k].default = json.properties[k].default;
-            }
         }
-        if (!json.properties._id) {
-            schema._id = false;
-        }
+        return schema;
+    }
+    else if (!_.isUndefined(json.const)) {
+        return json.const;
     }
     else if (baseTypes.includes(json.type)) {
-        return { type: types[json.type] };
+        return { ...json, type: types[json.type] };
     }
-    return schema;
 }
 export function getMongoSchema(json, option = {}) {
     const schema = json2schema(json);
