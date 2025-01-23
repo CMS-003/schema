@@ -7,7 +7,6 @@ class JsonSchema extends Base {
             _id: { type: String },
             name: { type: String },
             title: { type: String },
-            visible: { type: Number, default: 1 },
             db: { type: String },
             table: { type: String },
             status: { type: Number },

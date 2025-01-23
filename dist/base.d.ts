@@ -71,7 +71,7 @@ export declare class Base<T> {
 }
 export declare function getJsonSchema(schema: Schema): IJsonSchema;
 type IJson = {
-    type?: 'Object' | 'Array' | 'Buffer' | 'Date' | 'Decimal128' | 'Map' | 'Number' | 'String' | 'ObjectId' | 'Boolean';
+    type?: 'Object' | 'Array' | 'Buffer' | 'Date' | 'Decimal128' | 'Map' | 'Mixed' | 'Number' | 'String' | 'ObjectId' | 'Boolean';
     const?: any;
     enum?: any;
     comment?: string;

@@ -6,7 +6,6 @@ export interface IJsonSchema {
   title: string;
   db: string;
   table: string;
-  visible: number;
   status: number;
   schema: object;
   createdAt: Date;

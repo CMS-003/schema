@@ -214,6 +214,9 @@ export function getJsonSchema(schema: Schema): IJsonSchema {
     if (type === 'Date') {
       o.type = 'Date';
     }
+    if (xchma.options.type.name === 'SchemaMixed') {
+        o.type = 'Mixed';
+    }
     if (type === 'Array') {
       o.items = xchma.schema ? [getJsonSchema(xchma.schema)] : xchma.options.type.map((t: any) => t.type ? t.type.name : t.name).map((t: string) => ({ type: _.upperFirst(t) }));
     }
@@ -235,7 +238,7 @@ export function getJsonSchema(schema: Schema): IJsonSchema {
 
 type IJson = {
   // DocumentArray Subdocument
-  type?: 'Object' | 'Array' | 'Buffer' | 'Date' | 'Decimal128' | 'Map' | 'Number' | 'String' | 'ObjectId' | 'Boolean',
+  type?: 'Object' | 'Array' | 'Buffer' | 'Date' | 'Decimal128' | 'Map' | 'Mixed' | 'Number' | 'String' | 'ObjectId' | 'Boolean',
   const?: any;
   enum?: any;
   comment?: string;
@@ -246,7 +249,7 @@ type IJson = {
 }
 
 const types = mongoose.Schema.Types;
-const baseTypes = ['String', 'Boolean', 'Buffer', 'Date', 'Map', 'Decimal128', 'ObjectId', 'Number'];
+const baseTypes = ['String', 'Boolean', 'Buffer', 'Date', 'Map', 'Decimal128', 'ObjectId', 'Number', 'Mixed'];
 
 // 非正规的都要求改为 { type: xxx }
 function json2schema(json: IJson, isSubSchema: Boolean = false): any {

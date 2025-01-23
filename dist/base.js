@@ -176,6 +176,9 @@ export function getJsonSchema(schema) {
         if (type === 'Date') {
             o.type = 'Date';
         }
+        if (xchma.options.type.name === 'SchemaMixed') {
+            o.type = 'Mixed';
+        }
         if (type === 'Array') {
             o.items = xchma.schema ? [getJsonSchema(xchma.schema)] : xchma.options.type.map((t) => t.type ? t.type.name : t.name).map((t) => ({ type: _.upperFirst(t) }));
         }
@@ -196,7 +199,7 @@ export function getJsonSchema(schema) {
     return json;
 }
 const types = mongoose.Schema.Types;
-const baseTypes = ['String', 'Boolean', 'Buffer', 'Date', 'Map', 'Decimal128', 'ObjectId', 'Number'];
+const baseTypes = ['String', 'Boolean', 'Buffer', 'Date', 'Map', 'Decimal128', 'ObjectId', 'Number', 'Mixed'];
 // 非正规的都要求改为 { type: xxx }
 function json2schema(json, isSubSchema = false) {
     const schema = {};
