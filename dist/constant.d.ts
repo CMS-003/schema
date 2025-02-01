@@ -30,14 +30,17 @@ declare const _default: {
         IMAGE: {
             COVER: number;
             THUMB: number;
-            IMAGE: number;
+            INNER: number;
             ALBUM: number;
         };
         CHAPTER: {
             CHAPTER: number;
             VOLUMES: number;
         };
-        SEGMENT: {};
+        SEGMENT: {
+            POINT: number;
+            RANGE: number;
+        };
         MUSIC: {
             AUDIO: number;
             MOVIE: number;

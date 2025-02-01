@@ -54,7 +54,7 @@ export default {
             // 小图
             THUMB: 2,
             // 正文
-            IMAGE: 3,
+            INNER: 3,
             // 画册
             ALBUM: 4,
         },
@@ -64,7 +64,10 @@ export default {
             // 分卷
             VOLUMES: 2,
         },
-        SEGMENT: {},
+        SEGMENT: {
+            POINT: 1,
+            RANGE: 2,
+        },
         MUSIC: {
             AUDIO: 1,
             MOVIE: 2,
