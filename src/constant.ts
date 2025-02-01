@@ -74,7 +74,17 @@ export default {
       MOVIE: 2,
     },
     FILE: {
-
+      OTHER: 0,
+      TEXT: 1,
+      DOC: 2,
+      PPT: 3,
+      EXCEL: 4,
+      IMAGE: 5,
+      VIDEO: 6,
+      TORRENT: 7,
+      ARCHIVE: 8,
+      APP: 9,
+      OFFICE: 10,
     },
     CAPTION: {
       SUBTITLES: 1,

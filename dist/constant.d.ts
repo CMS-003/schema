@@ -45,7 +45,19 @@ declare const _default: {
             AUDIO: number;
             MOVIE: number;
         };
-        FILE: {};
+        FILE: {
+            OTHER: number;
+            TEXT: number;
+            DOC: number;
+            PPT: number;
+            EXCEL: number;
+            IMAGE: number;
+            VIDEO: number;
+            TORRENT: number;
+            ARCHIVE: number;
+            APP: number;
+            OFFICE: number;
+        };
         CAPTION: {
             SUBTITLES: number;
             LYRICS: number;
