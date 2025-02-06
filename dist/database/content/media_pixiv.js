@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import Base from '../../base.js';
-import constant from "../../constant.js";
+import CONST from 'const';
 class MediaPixiv extends Base {
     constructor(db, params = {}) {
         super();
@@ -9,7 +9,7 @@ class MediaPixiv extends Base {
             uid: { type: String },
             mid: { type: String },
             mtype: { type: String },
-            type: { type: Number, default: constant.TYPE.IMAGE.ALBUM },
+            type: { type: Number, default: CONST.IMAGE.TYPE.ALBUM },
             title: { type: String },
             path: { type: String },
             url: { type: String },

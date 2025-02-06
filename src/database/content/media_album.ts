@@ -2,7 +2,7 @@
 import mongoose from "mongoose";
 import Base, { CustomParams } from '../../base.js';
 import { IMediaALBUM } from '../../@types/content.js'
-import constant from "../../constant.js";
+import CONST from 'const'
 
 class MediaALBUM extends Base<IMediaALBUM> {
   constructor(db: mongoose.Connection, params: CustomParams<IMediaALBUM> = {}) {
@@ -12,12 +12,12 @@ class MediaALBUM extends Base<IMediaALBUM> {
       uid: { type: String, },
       mid: { type: String, },
       mtype: { type: String, },
-      type: { type: Number, default: constant.TYPE.IMAGE },
+      type: { type: Number, default: CONST.IMAGE.TYPE.ALBUM },
       title: { type: String },
       path: { type: String },
       url: { type: String },
       nth: { type: Number, default: 1 },
-      status: { type: Number, default: constant.STATUS.INITIAL },
+      status: { type: Number, default: CONST.STATUS.INITIAL },
       createdAt: { type: Date },
       updatedAt: { type: Date },
       more: { type: Object, default: {} },

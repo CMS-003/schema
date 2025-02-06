@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import Base from '../../base.js';
-import constant from "../../constant.js";
+import CONST from 'const';
 class MediaMusic extends Base {
     constructor(db, params = {}) {
         super();
@@ -8,7 +8,7 @@ class MediaMusic extends Base {
             _id: { type: String },
             uid: { type: String },
             mid: { type: String, },
-            type: { type: Number, default: constant.TYPE.MUSIC.AUDIO },
+            type: { type: Number, default: CONST.MUSIC.TYPE.AUDIO },
             title: { type: String },
             path: { type: String },
             url: { type: String },

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import Base, { CustomParams } from '../../base.js';
 import { IMediaPixiv } from '../../@types/content.js'
-import constant from "../../constant.js";
+import CONST from 'const'
 
 class MediaPixiv extends Base<IMediaPixiv> {
   constructor(db: mongoose.Connection, params: CustomParams<IMediaPixiv> = {}) {
@@ -11,7 +11,7 @@ class MediaPixiv extends Base<IMediaPixiv> {
       uid: { type: String },
       mid: { type: String },
       mtype: { type: String },
-      type: { type: Number, default: constant.TYPE.IMAGE.ALBUM },
+      type: { type: Number, default: CONST.IMAGE.TYPE.ALBUM },
       title: { type: String },
       path: { type: String },
       url: { type: String },

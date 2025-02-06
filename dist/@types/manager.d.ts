@@ -128,6 +128,7 @@ export interface IView {
     name: string;
     type: string;
     table: string;
+    url: string;
     order: number;
     createdAt: Date;
     updatedAt: Date;

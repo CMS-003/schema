@@ -10,6 +10,8 @@ class View extends Base<IView> {
       name: { type: String },
       type: { type: String },
       order: { type: Number },
+      table: { type: String },
+      url: { type: String },
       widgets: [{
         _id: false,
         widget: String,

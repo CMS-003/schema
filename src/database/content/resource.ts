@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { v7 } from "uuid";
 import Base, { CustomParams } from '../../base.js';
 import { IResource } from '../../@types/content.js'
-import constant from "../../constant.js";
+import CONST from 'const'
 
 class Resource extends Base<IResource> {
   constructor(db: mongoose.Connection, params: CustomParams<IResource> = {}) {
@@ -15,7 +15,7 @@ class Resource extends Base<IResource> {
       tags: { type: [String], default: [], },
       uid: { type: String, default: '', },
       uname: { type: String, default: '', },
-      status: { type: Number, default: constant.STATUS.INITIAL, },
+      status: { type: Number, default: CONST.STATUS.INITIAL, },
       actors: { type: [{ _id: String, name: String }], default: [] },
       publishedAt: { type: Date, default: Date.now, },
       original: { type: Object, default: {}, },

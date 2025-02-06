@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/CMS-003/schema#readme",
   "dependencies": {
+    "const": "github:CMS-003/CONST",
     "dayjs": "^1.11.11",
     "lodash": "^4.17.21",
     "mongoose": "^8.5.1",

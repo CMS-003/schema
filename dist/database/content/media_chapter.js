@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import Base from '../../base.js';
-import constant from "../../constant.js";
+import CONST from 'const';
 class MediaChapter extends Base {
     constructor(db, params = {}) {
         super();
@@ -14,7 +14,7 @@ class MediaChapter extends Base {
             url: { type: String, },
             path: { type: String, },
             type: { type: Number },
-            status: { type: Number, default: constant.STATUS.INITIAL },
+            status: { type: Number, default: CONST.STATUS.INITIAL },
             nth: { type: Number, default: 1 },
             createdAt: { type: Date },
             updatedAt: { type: Date },
