@@ -17,6 +17,7 @@
 - 根据表的schema字段 创建(多个) 列表页模板和表单页模板
 - 模板有编辑模式和视图模式(后台react动态路由 /edit/:template_id /preview/:template_id)
 - 动态api类接口: apiPath => response
+- 如何通过 Schema 数据自动生成 type 并重新启动 ts 类型服务器
 
 ## Schema
 

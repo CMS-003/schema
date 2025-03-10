@@ -10,7 +10,6 @@ class MediaSegment extends Base {
             mid: { type: String, },
             mtype: { type: String, },
             title: { type: String, },
-            content: { type: String, },
             url: { type: String, },
             path: { type: String, },
             type: { type: Number },

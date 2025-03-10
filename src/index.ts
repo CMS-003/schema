@@ -7,7 +7,6 @@ import MConfig from "./database/manager/config.js";
 import MLog from "./database/manager/log.js";
 import MProject from "./database/manager/project.js";
 import MTemplate from "./database/manager/template.js";
-import MWidget from "./database/manager/widget.js";
 import MSchedule from './database/manager/schedule.js'
 import MView from './database/manager/view.js'
 import MInterface from './database/manager/interface.js'
@@ -48,7 +47,6 @@ export {
   MLog,
   MProject,
   MTemplate,
-  MWidget,
   MSchedule,
   MView,
   MInterface,

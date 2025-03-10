@@ -21,14 +21,10 @@ export interface IResource {
   tags: string[];
   uname: string;
   status: number;
-  original: object;
-  origin: string;
   country: string;
   actors: { _id: string, name: string }[];
   lang: string;
   cspn: string;
-  spider_id: string;
-  source_id: string;
   types: string[];
   publishedAt: Date;
   archivedAt?: Date;
