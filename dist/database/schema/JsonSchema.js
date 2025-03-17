@@ -11,6 +11,9 @@ class JsonSchema extends Base {
             table: { type: String },
             status: { type: Number },
             schema: { type: Object },
+            methods: {
+                type: [{ name: String, group: Number, script: String, _id: false }], default: []
+            },
             createdAt: { type: Date },
             updatedAt: { type: Date },
         }, {

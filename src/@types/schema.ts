@@ -8,6 +8,7 @@ export interface IJsonSchema {
   table: string;
   status: number;
   schema: object;
+  methods: { name: string; group: number; script: string }[];
   createdAt: Date;
   updatedAt: Date;
 }
