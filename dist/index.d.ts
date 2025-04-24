@@ -1,33 +1,52 @@
-import MConnection from "./database/schema/connection.js";
-import MJsonSchema from "./database/schema/JsonSchema.js";
-import MComponent from "./database/manager/component.js";
-import MComponentType from "./database/manager/component_type.js";
-import MConfig from "./database/manager/config.js";
-import MLog from "./database/manager/log.js";
-import MProject from "./database/manager/project.js";
-import MTemplate from "./database/manager/template.js";
-import MSchedule from './database/manager/schedule.js';
-import MView from './database/manager/view.js';
-import MInterface from './database/manager/interface.js';
-import MUser from "./database/user/user.js";
-import MSns from "./database/user/sns.js";
-import MVerification from "./database/user/verification.js";
-import MFeedback from "./database/user/feedback.js";
-import MStar from "./database/user/star.js";
-import MCounter from "./database/content/counter.js";
-import MResource from "./database/content/resource.js";
-import MMediaChapter from "./database/content/media_chapter.js";
-import MMediaSegment from "./database/content/media_segment.js";
-import MMediaMusic from "./database/content/media_music.js";
-import MMediaVideo from "./database/content/media_video.js";
-import MMediaImage from "./database/content/media_image.js";
-import MMediaPixiv from "./database/content/media_pixiv.js";
-import MMediaALBUM from "./database/content/media_album.js";
-import MMediaCaption from "./database/content/media_caption.js";
-import MVersion from "./database/content/version.js";
-import MAccount from "./database/security/account.js";
-import MPass from "./database/security/pass.js";
-import MTask from './database/crawler/task.js';
-import MSpider from "./database/crawler/spider.js";
-import MCapsule from './database/timepill/capsule.js';
-export { MConnection, MJsonSchema, MComponent, MComponentType, MConfig, MLog, MProject, MTemplate, MSchedule, MView, MInterface, MSns, MUser, MFeedback, MVerification, MStar, MCounter, MResource, MMediaChapter, MMediaSegment, MMediaMusic, MMediaImage, MMediaPixiv, MMediaVideo, MMediaALBUM, MMediaCaption, MVersion, MAccount, MPass, MCapsule, MTask, MSpider, };
+import mongoose, { Model, Schema } from 'mongoose';
+import { IJsonSchema, OPT, CustomParams, IJSONSchema, IConnection } from './@types';
+export declare class Base<T> {
+    static models: {
+        [key: string]: Model<any>;
+    };
+    model: null | Model<T>;
+    constructor();
+    _init(opts: OPT<T> | OPT): OPT<T>;
+    aggregate(query: any): mongoose.Aggregate<any[]>;
+    getModel(): mongoose.Model<T, {}, {}, {}, mongoose.IfAny<T, any, mongoose.Document<unknown, {}, T> & mongoose.Require_id<T>>, any>;
+    create(data: Partial<T>): Promise<mongoose.IfAny<T, any, mongoose.Document<unknown, {}, T> & mongoose.Require_id<T>>>;
+    destroy(opts: OPT): mongoose.Query<mongoose.mongo.DeleteResult, mongoose.IfAny<T, any, mongoose.Document<unknown, {}, T> & mongoose.Require_id<T>>, {}, T, "deleteMany", {}>;
+    update(opts?: OPT<T>): Promise<T & {
+        [key: string]: Function;
+    }>;
+    getAll(opts?: OPT): Promise<T[]>;
+    count(opts?: {}): Promise<number>;
+    sum(opts?: {}): Promise<number>;
+    getList(opts?: OPT): Promise<T[]>;
+    getInfo(opts?: OPT): Promise<T & {
+        [key: string]: Function;
+    }>;
+    getAttributes(): {
+        field: string;
+        type: string;
+    }[];
+    getJsonSchema(): IJSONSchema;
+}
+/**
+ *  将JSONSchema定义的对象转为mongoose的Schema
+ * @param json 符合JSONSchema的表定义
+ * @param option mongoose.SchemaOptions
+ * @returns
+ */
+export declare function getMongoSchema(json: IJSONSchema, option?: mongoose.SchemaOptions): mongoose.Schema<any, mongoose.Model<any, any, any, any, any, any>, {}, {}, {}, {}, mongoose.SchemaOptions<unknown, {}, {}, {}, {}, mongoose.Document<unknown, {}, unknown> & Required<{
+    _id: unknown;
+}>>, any, mongoose.Document<unknown, {}, unknown> & Required<{
+    _id: unknown;
+}>>;
+/**
+ * 将mongoose的Schema转为符合JSONSchema的对象
+ * @param schema mongoose的Schema
+ * @returns
+ */
+export declare function getJsonSchema(schema: Schema): IJSONSchema;
+export declare class MConnection extends Base<IConnection> {
+    constructor(db: mongoose.Connection, params?: CustomParams<IConnection>);
+}
+export declare class MJsonSchema extends Base<IJsonSchema> {
+    constructor(db: mongoose.Connection, params?: CustomParams<IJsonSchema>);
+}
