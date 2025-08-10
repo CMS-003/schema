@@ -26,6 +26,7 @@ export interface OPT<T = void> {
   page?: number,
   offset?: number,
   limit?: number,
+  aggregate?: boolean,
 }
 export interface CustomParams<T> {
   methods?: {
