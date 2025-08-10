@@ -14,6 +14,7 @@ export class Base {
             lean: false,
             data: null,
             options: {},
+            aggregate: false,
         };
         opt.where = opts.where || {};
         opt.options = opts.options || {};
@@ -51,6 +52,9 @@ export class Base {
         // 字段
         if (!_.isEmpty(opts.attrs)) {
             opt.attrs = opts.attrs;
+        }
+        if (opts.aggregate) {
+            opt.aggregate = true;
         }
         // update的数据
         if (opts.data) {
@@ -111,7 +115,17 @@ export class Base {
     }
     getList(opts = {}) {
         const opt = this._init(opts);
-        return this.model.find(opt.where).select(opt.attrs).limit(opt.limit).skip(opt.offset).sort(opt.sort).lean(opt.lean);
+        const arr = [
+            { $match: opt.where },
+            { $limit: opt.limit },
+        ];
+        if (!_.isEmpty(opt.attrs)) {
+            arr.push({ $project: opt.attrs });
+        }
+        if (!_.isEmpty(opt.sort)) {
+            arr.push({ $sort: opt.sort });
+        }
+        return opt.aggregate ? this.model.aggregate(arr) : this.model.find(opt.where).select(opt.attrs).limit(opt.limit).skip(opt.offset).sort(opt.sort).lean(opt.lean);
     }
     async getInfo(opts = {}) {
         const opt = this._init(opts);
