@@ -18,7 +18,7 @@ export class Base<T> {
       lean: false,
       data: null,
       options: {},
-      aggregate: false,
+      aggregate: [],
     };
     opt.where = opts.where || {};
     opt.options = opts.options || {};
@@ -58,7 +58,7 @@ export class Base<T> {
       opt.attrs = opts.attrs;
     }
     if (opts.aggregate) {
-      opt.aggregate = true;
+      opt.aggregate = opts.aggregate;
     }
     // update的数据
     if (opts.data) {
@@ -122,6 +122,7 @@ export class Base<T> {
   }
   getList(opts: OPT = {}): Promise<T[]> {
     const opt = this._init(opts);
+    const aggregate = !_.isEmpty(opt.aggregate) ? true: false;
     const arr: mongoose.PipelineStage[] = [
       { $match: opt.where },
       { $limit: opt.limit },
@@ -132,7 +133,10 @@ export class Base<T> {
     if (!_.isEmpty(opt.sort)) {
       arr.push({ $sort: opt.sort as Record<string, 1 | -1 | mongoose.Expression.Meta> })
     }
-    return opt.aggregate ? this.model.aggregate(arr) : this.model.find(opt.where).select(opt.attrs).limit(opt.limit).skip(opt.offset).sort(opt.sort).lean(opt.lean);
+    if(aggregate) {
+      arr.push(...opt.aggregate)
+    }
+    return aggregate ? this.model.aggregate(arr) : this.model.find(opt.where).select(opt.attrs).limit(opt.limit).skip(opt.offset).sort(opt.sort).lean(opt.lean);
   }
   async getInfo(opts: OPT = {}) {
     const opt = this._init(opts);

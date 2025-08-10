@@ -1,4 +1,4 @@
-import { Model, UpdateQuery, UpdateWithAggregationPipeline } from 'mongoose';
+import mongoose, { Model, UpdateQuery, UpdateWithAggregationPipeline } from 'mongoose';
 export type IJSONSchema = {
     type?: 'Object' | 'Array' | 'Buffer' | 'Date' | 'Decimal128' | 'Map' | 'Mixed' | 'Number' | 'String' | 'ObjectId' | 'Boolean';
     const?: any;
@@ -31,7 +31,7 @@ export interface OPT<T = void> {
     page?: number;
     offset?: number;
     limit?: number;
-    aggregate?: boolean;
+    aggregate?: [mongoose.PipelineStage] | [];
 }
 export interface CustomParams<T> {
     methods?: {

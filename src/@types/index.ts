@@ -1,4 +1,4 @@
-import { Model, UpdateQuery, UpdateWithAggregationPipeline, Schema, Document } from 'mongoose';
+import mongoose, { Model, UpdateQuery, UpdateWithAggregationPipeline, Schema, Document } from 'mongoose';
 
 // JSON Schema 协议 type
 export type IJSONSchema = {
@@ -26,7 +26,7 @@ export interface OPT<T = void> {
   page?: number,
   offset?: number,
   limit?: number,
-  aggregate?: boolean,
+  aggregate?: [mongoose.PipelineStage]|[],
 }
 export interface CustomParams<T> {
   methods?: {
