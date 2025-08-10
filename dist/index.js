@@ -118,13 +118,9 @@ export class Base {
         const aggregate = !_.isEmpty(opt.aggregate) ? true : false;
         const arr = [
             { $match: opt.where },
-            { $limit: opt.limit },
         ];
         if (!_.isEmpty(opt.attrs)) {
             arr.push({ $project: opt.attrs });
-        }
-        if (!_.isEmpty(opt.sort)) {
-            arr.push({ $sort: opt.sort });
         }
         if (aggregate) {
             arr.push(...opt.aggregate);
